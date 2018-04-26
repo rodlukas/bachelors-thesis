@@ -1,0 +1,142 @@
+% options:
+% thesis=B bachelor's thesis
+% thesis=M master's thesis
+% czech thesis in Czech language
+% slovak thesis in Slovak language
+% english thesis in English language
+% hidelinks remove colour boxes around hyperlinks
+
+\documentclass[thesis=B,czech]{FITthesis}[2012/06/26]
+
+% \usepackage[utf8]{inputenc} LaTeX source encoded as UTF-8
+\usepackage{graphicx} %graphics files inclusion
+% \usepackage{amsmath} %advanced maths
+% \usepackage{amssymb} %additional math symbols
+\usepackage{dirtree} %directory tree visualisation
+\usepackage{minted}
+\usemintedstyle{xcode} % aby nebyly zvyrazneny chyby v Reactu, jehoz syntaxe neni znama
+\usepackage{xevlna}
+\usepackage{csquotes}
+
+\usepackage[style=iso-numeric]{biblatex}
+\addbibresource{sources.bib}
+% aby se spravne lamaly adresy v bibliografii:
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+% list of acronyms
+% \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
+% \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
+% \makeglossaries
+
+\newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
+\newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% ODTUD DAL VSE ZMENTE
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\department{Katedra softwarového inženýrství}
+\title{Webová aplikace pro evidenci klientů projektu \enquote{Úspěšný prvňáček}}
+\authorGN{Lukáš} %(křestní) jméno (jména) autora
+\authorFN{Rod} %příjmení autora
+\authorWithDegrees{Lukáš Rod} %jméno autora včetně současných akademických titulů
+\author{Lukáš Rod} %jméno autora bez akademických titulů
+\supervisor{Ing. Stanislav Kuznetsov}
+\acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
+\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má sloužit jako evidence klientů, jejich docházky, skupin, plateb za lekce a evidování celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky frameworku Django REST. Na závěr bylo úspěšně provedeno akceptační testování u zákazníka, na jehož základě byly vylepšeny zjištěné nedostatky. Aplikace poté byla nasazena na hosting a je denně zákazníkem používána.}
+\abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
+\placeForDeclarationOfAuthenticity{V~Praze}
+\declarationOfAuthenticityOption{1} %volba Prohlášení (číslo 1-6)
+\keywordsCS{webová aplikace, evidence klientů, kurzy pro předškoláky}
+\keywordsEN{Nahraďte seznamem klíčových slov v angličtině oddělených čárkou.}
+\website{https://github.com/rodlukas/bachelors-thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
+%\setcounter{tocdepth}{3}
+\renewcommand{\listingscaption}{Ukázka kódu}
+\renewcommand{\listoflistingscaption}{Seznam ukázek kódu}
+
+
+\begin{document}
+
+\listoflistings
+
+% \newacronym{CVUT}{{\v C}VUT}{{\v C}esk{\' e} vysok{\' e} u{\v c}en{\' i} technick{\' e} v Praze}
+% \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
+
+\begin{introduction}
+	\input{BP_uvod}
+\end{introduction}
+
+\chapter{Cíle práce}
+    \input{BP_cile}
+
+\part{Teoretická část}
+    \input{BP_teoreticka}
+    
+\part{Praktická část}
+    \input{BP_prakticka}
+
+\begin{conclusion}
+	\input{BP_zaver}
+\end{conclusion}
+
+
+\printbibliography
+
+\appendix
+
+\chapter{Seznam použitých zkratek}
+% \printglossaries
+\begin{description}
+	\item[GUI] Graphical user interface
+	\item[URL] Uniform Resource Locator
+	\item[XML] Extensible markup language
+	\item[CRUD] create-read-update-delete
+	\item[ÚP] Úspěšný prvňáček
+    \item[HTML] Hypertext Markup Language
+    \item[CSS] Cascading Style Sheets
+    \item[HTML5] Hypertext Markup Language 5
+    \item[CSS3] Cascading Style Sheets 3
+    \item[ADHD] Attention Deficit Hyperactivity Disorder
+    \item[CRM] Customer Relationship Management
+    \item[MVC] Model–view–controller
+    \item[MVP] Model–view–presenter
+    \item[MVT] Model-view-template
+    \item[DRY] Don't repeat yourself
+    \item[CBA] Component-Based Architecture
+    \item[UI] User Interface
+    \item[ORM] Object-relational mapping
+    \item[API] Application Programming Interface
+    \item[AJAX] Asynchronous JavaScript and XML
+    \item[JS] Javascript
+    \item[SSR] Server-Side Rendering
+    \item[CSR] Client-Side Rendering
+    \item[UX] User Experience
+    \item[SPA] Single-Page Application
+    \item[MPA] Multi-Page Application
+    \item[SEO] Search Engine Optimization
+    \item[HTTP] Hypertext Transfer Protocol
+    \item[JSON] JavaScript Object Notation
+    \item[SQL] Structured Query Language
+    \item[PaaS] Platform as a Service
+    \item[IaaS] Infrastructure as a Service
+
+\end{description}
+
+
+\chapter{Obsah přiloženého CD}
+
+\begin{figure}
+	\dirtree{%
+		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
+		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
+		.1 src.
+		.2 impl\DTcomment{zdrojové kódy implementace}.
+		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
+		.1 text\DTcomment{text práce}.
+		.2 thesis.pdf\DTcomment{text práce ve formátu PDF}.
+		.2 thesis.ps\DTcomment{text práce ve formátu PS}.
+	}
+\end{figure}
+
+\end{document}

@@ -1,0 +1,591 @@
+\chapter{Analýza}
+Cílem této kapitoly je analyzovat entity, procesy a fungování projektu a sestavit požadavky na výslednou aplikaci. Na základě toho pak může být započat návrh aplikace.
+    
+    \section{Procesy a entity}
+    Cílem této části je popsat, jak projekt funguje a zmapovat jednotlivé entity a popsat procesy. Na základě těchto zjištění pak bude proveden v další kapitole návrh logického datového modelu, komunikačního rozhraní ad. Vzhledem k tomu, že se v projektu pohybuje jediný člověk, lektorka, a tato aplikace slouží jako podpůrný prvek procesů v projektu (tedy např. neřeší objednání klienta, to proběhne např. telefonicky, osobně, e-mailem, pouze zaznamenává potřebná data a umožňuje s nimi pracovat a zobrazovat tak, aby zefektivnila jednotlivé procesy), je upuštěno od modelování procesů ve prospěch podrobného textového popisu, na základě kterého bude moci být návrh této aplikace podporující efektivitu a jednoduchou správu přesněji vytvořen.
+        \subsection*{Kurzy}
+        ÚP nabízí v současné době 6 kurzů, plánují se ale i další, stejně tak některé mohou být ukončeny. Každý kurz má svůj název. Kurzy jsou individuální a skupinové, neexistuje ale žádná přímá souvislost mezi kurzem a způsobem jeho výuky, protože se vše přizpůsobuje na míru klientovi, tedy některý kurz může sice být obvykle vyučován skupinově, ale někdy také individuálně. Kurzy mají variabilní délku, většinou od měsíce až po celoroční. Všechny kurzy jsou placené a většinou je na rodičích, zda zaplatí celý kurz, platí měsíčně, každou lekci a nebo úplně individuálně (platí se v hotovosti nebo převodem). Kurzy se konají ve všední dny, v současné době 3x týdně od odpoledne až do večera. Na kurz se klient objednává telefonicky, e-mailem, zprávou nebo osobně.
+        \subsection*{Klienti}
+        Každého, kdo dochází na nějaký kurz, je nazýván klientem. Klient, jak již bylo zmíněno v předchozím odstavci, navštěvuje kurzy. Buď je navštěvuje sám za sebe, tedy individuálně, nebo je součástí nějaké skupiny (viz. další odstavec). U klienta se eviduje jméno a příjmení, e-mailový a telefonní kontakt na rodiče a případně další poznámky, vzhledem k tomu, že v současné době byla evidence používána v podobě uvedené v kapitole \ref{aktualni-reseni}, často některé kontaktní údaje schází a je třeba s tím počítat.
+        \subsection*{Skupiny}
+        Zejména v poslední době se v projektu zvyšuje počet skupinových lekcí. Skupinu tvoří většinou 2 až 4 klienti, kteří v rámci této skupiny dochází na příslušný kurz. Lektorka si pro skupiny vytváří jejich jméno (které vychází z názvu kurzu a pořadového čísla skupiny v tomto kurzu), aby se v nich mohla orientovat. Je potřeba poznamenat, že klient může skupinu opustit a stejně tak se k nějaké stávající připojit, to samozřejmě znamená, že další lekce už budou pouze s těmi, kteří jsou stále ve skupině a nebo jsou čerstvě příchozí. Pokud klient skupinu opustí, je ale stále potřeba evidovat jeho předchozí docházku (pro případ, že se znovu přihlásí, nebo dokonce chodí individuálně a je potřeba vědět, že už odchodil část skupinově). Klienti často ze skupiny odchází buď z časových důvodů, tedy jejich docházka dočasně nebo trvale končí, druhým důvodem je, že přejdou do individuálního kurzu (např. kvůli pomalejšímu tempu).
+        \subsection*{Lekce}
+        Každý kurz se skládá z jednotlivých lekcí. Lekce jsou termíny, které každý klient dostane a dochází na ně. Jak bylo uvedeno v části o kurzech, za lekce se platí, většinou je ale na klientovi, jaký způsob placení zvolí. Pokud se jedná o skupinu, většinou každý platí jiným způsobem a v jiné termíny. Vzhledem k různorodosti způsobů placení jsou rodiče většinou rádi, že si nemusí nic pamatovat, dochází na kurz a poprosí lektorku, aby je upozornila, že si mají přinést příště peníze, někteří pak kurzy raději platí rovnou celé. Někdy se stane, že klient na kurz nedorazí, pro účely historie docházky a platby je potřeba rozeznat, zda se omluvil nebo nepřišel bez omluvy. Výjimečně se také může stát, že je termín zrušený ze strany lektorky z osobních důvodů. Kromě této docházky se samozřejmě musí evidovat u klientů, zda mají lekci zaplacenou a případně další poznámky. Vzhledem k tomu, že stále častěji rodiče volí předplácení, je tedy potřeba evidovat jak naplánované lekce, tak nenaplánované (tedy ty, co jsou zaplacené, ale nemají ještě přidělený a domluvený termín).
+    
+    \section{Požadavky}
+    V této části shrnu funkční a nefunkční požadavky na výslednou aplikaci. Všechny požadavky nebyly známé hned na počátku, některé z nich vznikly díky inkrementálnímu přístupu k analýze, návrhu a implementaci. Při návrhu aplikace jsem např. zjistil, že by se lektorce hodil také týdenní pohled na lekce, dále např. přibylo zobrazení čísla lekce ad. Součástí zadání této práce je požadavek, že se má jednat o webovou aplikaci. Tento požadavek tedy neuvádím v přehledu požadavků níže a beru jej jako výchozí.
+    
+    \subsection{Funkční požadavky}
+    \begin{itemize}
+        \item \textbf{evidence klientů:} systém umožní CRUD operace s klienty, u klienta je třeba zaznamenat jméno a příjmení dítěte a telefonní a emailový kontakt na rodiče a poznámku pro další informace,
+        \item \textbf{evidence lekcí klientů:} systém umožní evidovat, na které kurzy klient chodí (nebo chodil), a to jak individuální, tak skupinové,
+        \item \textbf{evidence docházky klientů na kurzy:} u každého klienta je potřeba evidovat jednotlivé lekce kurzů, součástí těchto evidovaných dat bude datum a čas, stav účasti (omluven, neomluven, odvolán ze strany lektorky), zda je zaplaceno, další poznámku (např. pro připomenutí, že má příště přinést zapůjčenou knížku),
+        \item \textbf{evidence předplacených lekcí:} aplikace umožní evidovat předplacené lekce klientů,
+        \item \textbf{přehled pro aktuální den:} na hlavní stránce po přihlášení je potřeba zobrazit seznam klientů, kteří mají v aktuální den dorazit, spolu s dalšími informacemi (zda mají zaplatit, případně další notifikace týkající se správy klientů),
+        \item \textbf{další upozornění:} u lekcí, které jsou jako poslední zaplacené je potřeba upozornit klienta, že příště musí platit, tedy je třeba toto upozornění lektorce připomenout u příslušné lekce,
+        \item \textbf{počítání lekcí:} u lekcí je potřeba zobrazit, kolikátá je to lekce v rámci kurzu, na kterou klient dorazil,
+        \item \textbf{týdenní přehled:} aplikace umožní zobrazit lekce v týdenním přehledu (pouze pracovní dny) a umožní mezi týdny přecházet jako v diáři.
+    \end{itemize}
+    
+    \subsection{Nefunkční požadavky}
+    \begin{itemize}
+        \item \textbf{podporované prohlížeče:} aplikace bude plně funkční a kompatibilní s posledními verzemi běžně používaných prohlížečů, tedy Mozilla Firefox, Google Chrome, Microsoft Edge, Apple Safari,
+        \item \textbf{podporovaná zařízení:} aplikaci bude přizpůsobená zejména pro používání na notebooku (kde bude používána primárně, jedná se o rozlišení 1920x1080, 15.6“), bude ji ale možno bez omezení používat i na tabletu (iPad s úhlopříčkou displeje 9,7“) a chytrém telefonu s Androidem a 5,2“ displejem,
+        \item \textbf{snadná údržba a rozvoj:} aplikace bude snadno rozšířitelná a upravitelná, je totiž plánovaný rozvoj projektu a rozšíření aplikace o další součásti (např. evidence prodejů pomůcek a učebnic ad.),
+        \item \textbf{srozumitelné a jednoduché rozhraní aplikace:} aplikace tvoří podpůrný systém pro zefektivnění a urychlení práce, musí dát možnost uživateli co nejsnadněji, nejrychleji a nejpochopitelněji provést každý úkon,
+        \item \textbf{bezpečnost:} aplikace obsahuje osobní data klientů, je tedy třeba zajistit odpovídající úroveň zabezpečení, aby se případný útočník nemohl dostat k citlivým údajům.
+    \end{itemize}
+    
+\chapter{Návrh}
+V této kapitole nejprve popíši návrh logického datového modelu aplikace a případně vysvětlím, které důvody mě vedly k vytvoření modelu zrovna takovýmto způsobem. Poté navrhnu architekturu aplikace, při tom budu vycházet z už zvolených technologií v poslední kapitole \ref{reseni} z teoretické části. Také uvedu, jak probíhal návrh uživatelského rozhraní spolu s ukázkou a na závěr popíšu navržené komunikační rozhraní API pro komunikaci mezi serverem a klientem. 
+
+    \section{Datový model}\label{datovymodel}
+    Pro modelování databáze jsem využil logický datový model, který umožní platformní nezávislost, je na obrázku \ref{fig:db-model}. Tento model pak může být jednoduše převeden na platformě závislý, resp. také vygenerování SQL pro vytvoření dané databáze (vzhledem k využití frameworku \textit{Django} to ale nebude nutné, a tak pro vizuální představu postačí pouze tento model). Model byl tvořen i s důrazem na budoucí rozšíření a je tedy připraven na zásahy uvedené v kapitole \ref{dalsirozsireni}.
+    \begin{figure}\centering
+    	\includegraphics[width=1\textwidth]{img/db-model}
+    	\caption[Logický datový model]{Logický datový model}\label{fig:db-model}
+    \end{figure}
+    
+        \subsection*{Client}
+        Entita klienta slouží k evidenci informací o klientovi, vyžadováno je jméno a příjmení, nepovinně telefonní a e-mailový kontakt na rodiče a poznámka. Kontakty jsou nepovinně zejména kvůli tomu, že doteď nebyly evidovány na jednom místě a někdy dokonce vůbec a bude potřeba již stávající klienty do evidence samozřejmě přidat.
+        \subsection*{Membership}
+        Členství slouží ke dvěma účelům. Zaprvé k dekompozici M:N vztahu klienta a skupiny (klient může být ve více skupinách a skupiny mohou mít více klientů), vím tedy, který klient patří do které skupiny. Zadruhé pro možné budoucí využití (původní záměr byl vytvořit atributy pro začátek a konec členství, na základě další analýzy a návrhů se ukázalo, že ale zatím postačí jednodušší varianta, tedy zda je teď členem nebo není).
+        \subsection*{Group}
+        Entita skupiny slouží k evidenci jednotlivých skupin. Atribut jméno skupiny je nepovinný (ačkoliv bude obvykle používán, jeho použití není vyžadováno, protože to není nutné). Dále skupina ví, ke kterému kurzu náleží, tato vazba je zde, abychom už od počátku vytvoření lekce věděli, ke kterému kurzu skupina patří.
+        \subsection*{Course}
+        Entita kurzu drží dva atributy: jméno kurzu a viditelnost, oba jsou povinné. Viditelnost slouží k tomu, abychom mohli v systému pro nově přidávané lekce skrýt z možností kurzu příslušný kurz, pokud už není provozován (aby byla zachována předchozí evidence lekcí daného kurzu).
+        \subsection*{AttendanceState}
+        Stav účasti slouží k evidování možností stavu účasti klientů na kurzu, předpokládanými jsou např. \enquote{omluven}, \enquote{nepřišel} ad. Tato entita drží dva atributy: název stavu účasti (např. \enquote{omluven}) a viditelnost, oba jsou povinné. Viditelnost opět slouží k tomu, abychom mohli v systému pro nově přidávané lekce skrýt z možností stavu účasti klienta příslušný stav, pokud už není využívaný (aby byla zachována předchozí evidence lekcí daného kurzu). Tím, že mám jednu entitu, která říká, jaké jsou možné stavy účasti, může být aplikace konzistentní, zároveň pro úpravu názvu není potřeba upravit každý stav zvlášť, dále lze jednoduše stav účasti přidat a začít jej používat, případně jej přestat používat a skrýt z budoucích nabídek.
+        \subsection*{Attendance, Lecture}
+        Vzhledem k úzkému propojení těchto dvou entit spojuji jejich popis do jedné části. Účast a lekce jsou jádrem aplikace a vzhledem k tomu, že je k nim potřeba z různých entit přistupovat, bylo potřeba jim věnovat dostatečný čas v návrhu, aby byl kvalitní a nebylo třeba jej měnit.
+        
+        Je potřeba evidovat lekce, každá má povinný atribut trvání (plánuje se funkcionalita upozornění na překryv lekcí), zda je zrušena (díky tomu lze jednoduše zrušit i skupinové lekce, oproti přístupu, kdy bychom zrušení evidovali prostřednictvím entity stavu účasti) a nepovinnou časovou značku začátku lekce (tzv. timestamp). V případě, že se jedná o naplánovanou lekci bez zatím známého konkrétního termínu, atribut obsahuje hodnotu \verb|null|. Ke každé lekci eviduji k ní náležící právě jeden kurz a nepovinně také skupinu, pokud se nejedná o individuální kurz. Tato vazba je potřeba pro individuální lekce (skupiny jsou řešeny vazbou přímo z entity skupin), tento způsob byl shledán po vyhledávání alternativních možností tím nejvhodnějším.
+        
+        Entita účasti je úmyslně oddělena od lekce, aby každý klient, kterého se lekce týká, mohl mít své údaje o účasti (což je v případě skupiny potřeba). Každá účast tedy ví, ke které jedné lekci a jednomu klientovi náleží, a také je k ní navázán právě jeden stav účasti příslušného klienta.
+        
+        Příkladem budiž lekce z pohledu entity účasti -- pro případ individuální lekce má účast navázaného jednoho klienta, jeden stav účasti a jednu lekci, která je dále navázána na jeden kurz. Pro případ skupinové lekce se čtyřčlennou skupinou jsou využity 4 záznamy v klientech, jeden záznam ve skupině a tyto záznamy jsou spojeny entitou členství. Skupině náleží jeden kurz. Nyní mohu vytvořit pro každého z účastníků účast navázanou na každého z nich, na stav účasti a také všechny navázané na stejnou lekci.
+        
+
+    \section{Architektura}\label{architektura}
+    Na obrázku \ref{fig:deployment-diagram} je diagram nasazení. Architektura má tři části: server, klient a databázový server. Na klientovi, tedy na počítači, mobilu či tabletu běží webový prohlížeč. Na serveru běží webový server \textit{Gunicorn}, což je Python WSGI HTTP Server (WSGI znamená, že splňuje požadavky na rozhraní Web Server Gate Interface, a tedy umožňuje komunikovat Django aplikaci, která WSGI vyžaduje, s webovým serverem). PostgreSQL databáze bude na samostatném serveru.
+    
+    \begin{figure}[ht]\centering
+    	\includegraphics[width=1\textwidth]{img/deployment-diagram}
+    	\caption[Diagram nasazení]{Diagram nasazení}\label{fig:deployment-diagram}
+    \end{figure}
+    
+    Jak již bylo řečeno v kapitole \ref{reseni}, serverová část je tedy v jazyce Python a frameworku Django a s klientskou částí v jazyce Javascript a frameworku React komunikuje přes REST API ve formátu JSON. Django je postavené na architektuře MVP (popis v kapitole \ref{mvc}) a React na architektuře CBA (popis v kapitole \ref{cba}). Je potřeba říci, že první požadavek a odpověď budou čistě v HTTP/S, tedy klient požádá o stránku, server mu ji celou vrátí, další komunikace už bude probíhat přímo přes REST API a odpovědi budou v JSON (díky tomu může být aplikace SPA, viz. \ref{spampa}). Python, a tedy i Django, umí v základu komunikovat pouze s SQLite databází, pro další databáze je třeba využít adaptér -- pro PostgreSQL se používá psycopg2. O vyřízení API požadavků je požádán \textit{Django REST Framework}, konkrétně část View, která poté prostřednictvím Serializeru využije příslušné Django Modely (tedy ORM) a získám tak data z databáze.
+    
+    \section{Návrh uživatelského prostředí}
+    Návrh uživatelského prostředí je neodmyslitelnou součástí tvorby webové aplikace. Vzhledem k tomu, že byl návrh tvořen v několika iteracích, zvolil jsem pohodlnější a rychlejší kreslení na papír. Díky tomu jsme při konverzaci nad budoucí podobou aplikace s lektorkou mohli některé nápady okamžitě zahodit a vytvořit bez problémů nové.
+    
+    \begin{figure}[ht]\centering
+    	\includegraphics[width=1\textwidth]{img/ui-navrh}
+    	\caption[Návrh karty klienta]{Návrh karty klienta}\label{fig:ui-navrh}
+    \end{figure}
+    
+    Na obrázku \ref{fig:ui-navrh} je jeden z návrhů z poslední iterace překreslený z papíru do aplikace \href{https://pencil.evolus.vn/}{Pencil}, jedná se o návrh karty klienta. Na základě těchto návrhů jsme doiterovali až do stavu, že jsme přesně věděli, co od aplikace kde a jak čekat.
+    
+    \section{Komunikační rozhraní}
+    Bylo potřeba navrhnout API tak, aby vystavilo všechny příslušné body potřebné pro práci na klientské části. Při návrhu jsem vycházel mj. z doporučení v \cite{api-bestpractises} -- pro všechny body jsou názvy v množném čísle, využívám naplno všechno dostupné HTTP metody GET, POST, PUT, PATCH a DELETE a nevystavuji zbytečně adresy obsahující prováděné akce (např. vytvoření), používám vždy množná čísla a adresa všech níže dále uvedených bodů API vždy začíná \verb|/api/v1/| (obsahuje tedy i označení verze API).
+    
+    Jak bylo již řečeno v předchozím odstavci, API kromě běžných operací umožňuje také PATCH požadavek, ten slouží k datově méně náročné částečné aktualizaci údajů. Tuto metodu lze použít např. pokud bude potřeba lekci označit jako zaplacenou -- není nutné přenášet další údaje, pokud je měněn jen jeden, stačí poskytnout id a upravovaný údaj. Často jsou GET požadavky vraceny z důvodu snížení počtu požadavků na server rovnou se zanořenými daty (které jsou stejně vždy potřeba).
+    
+    \newcommand{\apiA}{0.33}
+    \newcommand{\apiB}{0.14}
+    \newcommand{\apiC}{0.43}
+    
+        \subsection{Klienti}
+        Rozhraní pro klienty pracuje s klíči \verb|id|, \verb|name|, \verb|surname|, \verb|phone|, \verb|email| a \verb|note|.
+        Pro GET požadavky jsou klienti seřazeni vždy podle abecedy vzestupně, a to podle příjmení a poté jména.
+        
+            {\centering
+            \begin{tabular}{p{\apiA\textwidth}p{\apiB\textwidth}p{\apiC\textwidth}}&&\\
+                \verb|clients/|             & \textbf{GET}      & vrátí všechny klienty\\
+                \verb|clients/|             & \textbf{POST}     & vytvoření nového klienta\\
+                \verb|clients/:id/|         & \textbf{GET}      & vrátí klienta s \verb|id|\\
+                \verb|clients/:id/|         & \textbf{PUT}      & úprava klienta s \verb|id|\\
+                \verb|clients/:id/|         & \textbf{PATCH}    & částečná úprava klienta s \verb|id|\\
+                \verb|clients/:id/|         & \textbf{DELETE}   & smazání klienta s \verb|id| (lze smazat pouze pokud nemá žádné lekce)\\
+            \end{tabular}}
+            
+        \subsection{Lekce}
+        Rozhraní pro lekce pracuje s klíči \verb|id|, \verb|start|, \verb|canceled| a \verb|duration|, to ale není vše. V případě lekce jsou obsaženy také zanořené informace o lekci. Součástí odpovědi jsou i zanořené informace o kurzu (klíč \verb|course|) a jednotlivé účasti každého z klientů (klíč \verb|attendances|), které navíc obsahují vnořené informace o každém z klientů (klíč \verb|client|), stavu účasti (klíč \verb|attendancestate|) a také vypočítané informace o číslu lekce v pořadí (klíč \verb|count|) a zda je potřeba připomenout příští platbu (klíč \verb|remind_pay|). Vypočítané informace jsou pouze v odpovědích a při požadavcích na úpravu či vytvoření se neuvádějí, dále zanořené informace kromě samotných účastí se zadávají pouze formou \verb|klíč_id| (tedy např. \verb|attendancestate_id|). Kromě dotazu s uvedeným přesným datumem se vrací i zrušené lekce.
+        
+        Každý z dotazů na lekce lze doplnit také o parametr \verb|ordering=start|, resp. \verb|ordering=-start| pro seřazení výsledků dle atributu \verb|start| vzestupně, resp. sestupně (s posledními třemi dotazy, které již výsledky filtrují, lze toto řazení připojit přes operátor \verb|&|), výchozí řazení je sestupně (tedy od posledních lekcí k nejstarším).
+        
+            {\centering
+            \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
+                \verb|lectures/|            & \textbf{GET}      & vrátí všechny lekce\\
+                \verb|lectures/|            & \textbf{POST}     & vytvoří novou lekci\\
+                \verb|lectures/:id/|        & \textbf{GET}      & vrátí lekci s \verb|id|\\
+                \verb|lectures/:id/|        & \textbf{PUT}      & úprava lekce s \verb|id|\\
+                \verb|lectures/:id/|        & \textbf{PATCH}    & částečná úprava lekce s \verb|id|\\
+                \verb|lectures/:id/|        & \textbf{DELETE}   & smazání lekce s \verb|id|\\
+                \verb|lectures/?group=:id|  & \textbf{GET}      & vrátí lekce skupiny s \verb|id|\\
+                \verb|lectures/?client=:id| & \textbf{GET}      & vrátí lekce klienta s \verb|id| (jen individuální)\\
+                \verb|lectures/?date=:date| & \textbf{GET}      & vrátí lekce (bez zrušených) konající se v zadaný datum \verb|date| (ve formátu YYY-mm-dd)\\ %ISO
+            \end{tabular}}
+        
+        \subsection{Skupiny}
+        Rozhraní pro lekce pracuje s klíči \verb|id|, \verb|name| a dále se zanořenými informacemi o kurzu (klíč \verb|course|) a  členech skupiny (klíč \verb|memberships|) se zanořenými informacemi o klientovi (klíč \verb|client|). Pro úpravy a vytváření se opět atributy zadávají pouze formou \verb|klíč_id|.
+        
+            {\centering
+            \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
+                \verb|groups/|              & \textbf{GET}      & vrátí všechny skupiny\\
+                \verb|groups/|              & \textbf{POST}     & vytvoří novou skupinu\\
+                \verb|groups/:id/|          & \textbf{GET}      & vrátí skupinu s \verb|id|\\
+                \verb|groups/:id/|          & \textbf{PUT}      & úprava skupiny s \verb|id|\\
+                \verb|groups/:id/|          & \textbf{PATCH}    & částečná úprava skupiny s \verb|id|\\
+                \verb|groups/:id/|          & \textbf{DELETE}   & smazání skupiny s \verb|id|\\
+                \verb|groups/?client=:id|   & \textbf{GET}      & vrátí skupiny klienta s \verb|id|\\
+            \end{tabular}}
+        
+        \subsection{Kurzy}
+        Rozhraní pro kurzy pracuje s klíči \verb|id|, \verb|name| a \verb|visible|.
+        
+            {\centering
+            \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
+                \verb|courses/|             & \textbf{GET}      & vrátí všechny kurzy\\
+                \verb|courses/|             & \textbf{POST}     & vytvoří nový kurz\\
+                \verb|courses/:id/|         & \textbf{GET}      & vrátí kurz s \verb|id|\\
+                \verb|courses/:id/|         & \textbf{PUT}      & úprava kurzu s \verb|id|\\
+                \verb|courses/:id/|         & \textbf{PATCH}    & částečná úprava kurzu s \verb|id|\\
+                \verb|courses/:id/|         & \textbf{DELETE}   & smazání kurzu s \verb|id| (lze smazat pouze pokud není přiřazený k žádné lekci nebo skupině)\\
+            \end{tabular}}
+            
+        \subsection{Stavy účasti}
+        Rozhraní pro stavy účasti pracuje s klíči \verb|id|, \verb|name| a \verb|visible|.
+        
+            {\centering
+            \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
+                \verb|attendancestates/|    & \textbf{GET}      & vrátí všechny stavy účasti\\
+                \verb|attendancestates/|    & \textbf{POST}     & vytvoří nový stav účasti\\
+                \verb|attendancestates/:id/|& \textbf{GET}      & vrátí stav účasti s \verb|id|\\
+                \verb|attendancestates/:id/|& \textbf{PUT}      & úprava stavu účasti s \verb|id|\\
+                \verb|attendancestates/:id/|& \textbf{PATCH}    & částečná úprava stavu účasti s \verb|id|\\
+                \verb|attendancestates/:id/|& \textbf{DELETE}   & smazání stavu účasti s \verb|id| (lze smazat pouze pokud není přiřazený k žádné účasti)\\
+            \end{tabular}}
+            
+        \subsection{Účasti}
+        Rozhraní pro účasti pracuje s klíči \verb|id|, \verb|paid|, \verb|note|, \verb|attendancestate_id| a \verb|client_id|.
+        
+            {\centering
+            \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
+                \verb|attendances/:id/|     & \textbf{PUT}      & úprava účasti s \verb|id|\\
+                \verb|attendances/:id/|     & \textbf{PATCH}    & částečná úprava účasti s \verb|id|\\
+            \end{tabular}}
+            
+        \subsection{Přihlášení}
+        Rozhraní pro účasti pracuje s klíči \verb|username|, \verb|password| a \verb|token|.
+        
+            {\centering
+            \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
+                \verb|jwt-auth/|            & \textbf{POST}     & na základě zaslaných údajů uživatele vrátí token\\
+                \verb|jwt-refresh/|         & \textbf{POST}     & na základě zaslaného (neexpirovaného) tokenu vrátí nový obnovený token\\
+            \end{tabular}}
+            
+        
+    
+\chapter{Implementace}
+V této části představím, jak probíhala samotná implementace aplikace. Je rozdělena do několika částí, nejprve popíši nástroje použité pro vývoj, poté se zaměřím na vytvoření základních funkcionalit serverové části, které budou výchozím krokem pro další podkapitoly, tedy jak se pracuje s datovou částí a jak probíhala tvorba API. Tím připravím všechny součástky potřebné k fungování klientské části, na kterou se zaměřím v další podkapitole a následovat pak bude způsob komunikace klienta se serverem. Na závěr, když už popíši všechny důležité části, uvedu strukturu adresářů a souborů projektu.
+
+Nejproblematičtější fází se překvapivě stala konfigurace Djanga a Reactu tak, aby spolu tyto dvě části fungovaly, a také pokročilejší přizpůsobení API, oběma problémům se budu také v této kapitole věnovat.
+
+    \section{Nástroje pro vývoj}\label{nastrojeprovyvoj}
+    Celá práce byla implementována v IDE \textit{Pycharm Professional Edition} od Jetbrains, které nabízí nativní podporu pro všechny části tohoto projektu od samotného Pythonu (např. už ve výchozím nastavení podporuje virtuální prostředí pro izolaci jednotlivých prostředí pro různé projekty), Djanga až po React, díky tomu lze využít všechny funkcionality tohoto IDE pro všechny používané jazyky a frameworky a také lze většina úkonů provádět také pomocí grafického prostředí -- integrovaný terminál lze použít jen v případě, kdy je to opravdu potřeba. Také existuje mnoho doplňků, které funkci IDE rozšíří o podporu dalších funkcí např. pro lepší práci s verzovacími nástroji, YAML formátem, ad.
+    
+    Pro rychlejší vývoj, organizaci a také pro rozšíření znalostí a zkušeností jsem se rozhodl využít i další služby. Pro verzování využívám soukromý repozitář na \href{https://github.com/}{GitHubu}. Dále využívám nástroj pro průběžnou integraci a dodávání \href{https://travis-ci.com/}{Travis CI}. Díky jednoduchému propojení s GitHubem se taky mohou samy spouštět při každém nahrání nové verze testy včetně těch pokročilejších a náročnějších a v případě úspěchu nahrát na produkční server pro zákazníka. K tomu všemu slouží jediný soubor v kořenovém adresáři s názvem \verb|.travis.yml|, podrobněji příslušné části souboru popíši v kapitolách o testování \ref{testovani} a nasazení \ref{nasazeni}.
+    
+    \section{Příprava prostředí}
+    Pro vývoj je potřeba nainstalovat další potřebné balíčky a závislosti. Vývoj probíhá na systému Windows 10 nejdříve jsem tedy nainstaloval do systému Python, jehož součástí je balíčkovací systém pip pro instalaci knihoven, a Node.js, jehož součástí je balíčkovací systém pro JS s názvem \textit{npm} (ten bude minimálně potřeba pro lokální vývoj React aplikace, npm je také vítaným ulehčením práce s knihovnami, závislostmi ad.). V současnosti se často používá také balíčkovací systém yarn, který je ale třeba doinstalovat (např. přes npm), jeho výhodou jsou stejné principy jako npm, ale mnohem vyšší efektivita a rychlost, pro tento projekt tedy používám \textit{yarn} nainstalovaný přes npm. Pomocí těchto balíčkovacích systémů jsem dále nainstaloval poslední verze frameworku Django a nástroj \textit{create-react-app} pro jednoduché vytvoření React aplikace. Vzhledem k tomu, že vývoj bude probíhat v IDE Pycharm, není již potřeba dále řešit virtuální prostředí v Pythonu (IDE jej připraví za nás). Vzhledem k tomu, že bude použita pro data databáze PostgreSQL, samozřejmě ji do systému také přidám a připravím databázi, kterou budu využívat.
+    
+    \section{Základní nastavení serverové a klientské části}\label{zakladninastaveni}
+    Začnu nejprve serverovou částí. V Djangu je potřeba nejprve vytvořit Django projekt a do něj poté přidávat jednotlivé komponenty, kterým se říká Django aplikace, projekt je tedy soubor aplikací a nastavení na jedné doméně. Pro vytvoření základní kostry projektu s výchozím nastavením jsem využil možností rozhraní Pycharmu, díky kterému stačí vyplnit základní informace o aplikaci a celou kostru připraví za nás, vytvořil jsem tedy projekt \verb|up|. Pro vytvoření aplikací jsem využil vestavěného manage.py terminálu v Pycharmu a v něm jsem přes příkaz \verb|startapp| vytvořil dvě aplikace: \verb|admin| (pro samotnou aplikaci) a \verb|api| (pro API). Ty je poté potřeba v nastavení Djanga přidat do \verb|INSTALLED_APPS|.
+    
+    Do serverové části zatím nebudu v této kapitole příliš zasahovat, pro další její části si ale připravím ještě Django aplikaci \verb|admin| tak, aby místo své výchozí stránky zobrazovala mou vlastní. Ačkoliv mám MVW framework, není potřeba pro tak jednoduché zobrazování (vzhledem k rozdělení odpovědnosti server vs. klient) vytvářet view, stačí využít již předpřipravený generický \verb|TemplateView| a jeho metodu \verb|as_view|, tedy do souboru \verb|urls.py| vložím kód \ref{lst:urls.py}, který zařídí, že každému uživateli na jakékoliv adrese zobrazím daný soubor (zobrazit klientovi správnou stránku bude zodpovědnost JS na klientské části).
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+re_path(r'^', TemplateView.as_view(template_name="index.html"))
+    	\end{minted}
+    	\caption{Část kódu přidaná do urls.py}\label{lst:urls.py}
+    \end{listing}
+    
+    Když nyní mám připravenou serverovou část, popíši základní nastavení klientské části. Nástroj \textit{create-react-app} umožňuje jednoduše vytvořit základní React aplikaci včetně všech základních nastavení, kostry a nastavení. Takto jsem vytvořil aplikaci \enquote{frontend}, tedy složku s tímto názvem, která obsahuje všechny potřebné součásti pro běh React aplikace. Součástí této připravené aplikace jsou mimo jiné tyto předkonfigurované součásti:
+    \begin{itemize}
+        \item transpiler Babel, který umožní používat bez obav JSX a další nové funkce z novějších ES standardů (viz. kapitola o JS \ref{js}),
+        \item bundlovací nástroj Webpack, který umožňuje \cite{webpack-ackee}:
+            \begin{itemize}
+                \item rozdělovat kód do modulů a napříč aplikací je importovat a znovupoužívat,
+                \item spouštět server, který umožní rychlý vývoj díky \enquote{hot reloadingu} (tedy okamžité automatické projevení změn při úpravě kódu),
+                \item automaticky spouštět transpilaci Babelem,
+                \item po přeložení vytvořit ze všech modulů a částí kódu jeden či více balíčků, které pak lze jako běžné JS a další soubory (např. CSS) servírovat na produkci, kde už samozřejmě vývojový JS server neběží,
+                \item s produkčními soubory provést obfuskace (minifikaci, uglifikaci), komprimaci, označení hashem (aby prohlížeč poznal, zda má využít soubor z cache, nebo tento nový) -- uvedené operace se soubory, které provádí Webpack a Babel by většinou šly provést až na produkci u uživatele, ale jednalo by se o zbytečně krkolomné a pomalé řešení,
+            \end{itemize}
+        \item testovací nástroje a další knihovny umožňující rychlejší vývoj, vyšší kompatibilitu napříč prohlížeči, rychlejší načítání ad.
+    \end{itemize}
+    Všechny tyto součásti používám, včetně nových specifikací ECMAScript, JSX apod., díky všem nástrojům není důvod k obávám z nekompatibility a můžu z jejich použití pouze profitovat.
+    
+    Nyní tedy mám na lokálním počítači připravené Django, které mi díky jeho vývojovému serveru zobrazí výchozí stránku a React, který mi díky Webpack vývojovému serveru zobrazí na odlišném portu také svou výchozí stránku. Je třeba tyto dvě části propojit tak, aby v případě lokálního prostředí spolupracovaly tak, abych nepřišel o žádné výhody jako např. hot reloading, hash v názvu ad. (aby nebylo při každé úpravě potřeba v Djangu měnit adresu souborů kvůli odlišné hodnotě hashe) a přizpůsobit konfiguraci také tomu, že na produkčním prostředí už poběží pouze jeden server, na kterém bude běžet Django, tedy Gunicorn. Tato část se vzhledem k mé dosavadní neznalosti těchto technologií ukázala jako poměrně náročná, protože bylo potřeba upravit kódy na obou stranách (tedy jak v Djangu, tak pro React v konfiguraci Webpacku) a ještě k tomu toto udělat prakticky dvakrát, jak pro lokální vývoj, tak pak odlišně pro produkci. Nakonec se mi ale podařilo tuto problematiku vyřešit, řešení vychází z článku \cite{webpack-loader2} a také staršího článku autora obou těchto knihoven \cite{webpack-loader1}, v následujícím odstavci jej stručně popíši.
+    
+    Díky nástroji \href{https://github.com/facebook/create-react-app}{\textit{create-react-app}} \cite{cra} mám k dispozici jednoduchou kostru, která mi ale neumožní hlubší zásahy do další konfigurace vnitřních součástí. Je tedy potřeba pomocí příkazu \verb|yarn eject| \enquote{vysunout} konfigurační soubory a závislosti tak, abychom k nim měli přístup a mohli je upravit. Nyní potřebuji dvě další dvě knihovny, každou pro jednu stranu -- do JS přidám knihovnu \href{https://github.com/owais/webpack-bundle-tracker}{\textit{webpack-bundle-tracker}} (dále jen tracker), která vyextrahuje potřebné informace z Webpacku do JSONu \cite{webpack-bundle-tracker} (např. názvy vygenerovaných souborů) a do Djanga přidám knihovnu \href{https://github.com/owais/django-webpack-loader}{\textit{django-webpack-loader}} (dále jen loader), která tyto informace bude konzumovat a umožní použít vygenerované soubory Webpackem v Djangu \cite{django-webpack-loader}. Tento JSON soubor bude tedy propojovat Webpack s Djangem.
+    
+    Stručně řečeno je potřeba tedy upravit konfiguraci Webpacku pro lokální i produkční prostředí tak, aby spolupracoval s trackerem a soubory byly tam, kde je bude očekávat loader, který bude konzumovat výstup trackeru (a aby totéž umožnil i pro lokální prostředí s hot reloadingem). Loader je samozřejmě také potřeba nakonfigurovat v souborech s nastavením Djanga, oproti původní vygenerované kostře budou dva, jeden obecný, jehož součástí budou také informace pro lokální prostředí a jeden produkční, který bude obsahovat import předchozího a přetíží konfiguraci potřebných částí svojí (to se týká nejen této části, ale později například i různých nastavení databází pro různá prostředí), v těchto nastaveních byl tedy nakonfigurován loader, aby konzumoval správný soubor ze správného místa a také byly nastaveny adresy statických souborů tak, aby je Django zahrnulo do shromažďování souborů prováděného příkazem \verb|collectstatic|. Posledním krokem je vložení Djangem získaných souborů do webové stránky, aby se zobrazily uživateli, v tomto kroku tedy poprvé a naposledy v celé této práci použiji šablonovací systém Djanga (který by byl naopak hojně používaný v případě, že bych nezvolil architekturu SPA s Reactem) -- do kostry výchozí stránky Djanga vložím tagy, které z loaderu umístí příslušné soubory do stránky (tedy JS a CSS). Je hotovo, po provedení příkazu \verb|manage.py runserver| a \verb|yarn start| Django ukazuje webovou stránku, na které je zobrazena výchozí stránka Reactu, a to jak v lokálním prostředí, tak na produkci. Výchozí zjednodušená stránka, která zaručí zobrazení celé aplikace je na ukázce \ref{lst:html}. React aplikace je vložena do elementu \verb|root|.
+    
+    \begin{listing}[ht]
+    	\begin{minted}{html}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>UPadmin</title>
+</head>
+<body>
+<div id="root">
+    <h2>Načítání...</h2>
+</div>
+{% render_bundle 'main' %}
+</body>
+</html>
+    	\end{minted}
+    	\caption{Výchozí zjednodušená stránka aplikace}\label{lst:html}
+    \end{listing}
+    
+    \section{Datová část}
+    K již nainstalovanému PostgreSQL jsem ještě nainstaloval IDE pro databáze od Jetbrains s názvem DataGrip, díky kterému budu moci jednoduše nahlížet jak do lokální databáze, tak do databáze na produkčním serveru a případně provádět i další operace. Jak již bylo zmíněno v kapitole s návrhem architektury \ref{architektura}, je potřeba použít adaptér \href{http://initd.org/psycopg/}{\textit{psycopg2}}, ten umožní v Pythonu, a tedy i Djangu, používat databázi PostgreSQL. Do nastavení Djanga přidám tuto databázi a zbývá definovat tabulky v databázi.
+    
+    Při návrhu datového modelu v kapitole \ref{datovymodel} jsem nastínil, že díky frameworku mám výrazně ulehčenou práci s databází (a je třeba říci, že pokud člověk doteď žádný framework s touto funkcionalitou nepoužíval, je to opravdu obrovský krok kupředu), v Djangu není potřeba mít skripty pro vytvoření databáze, jediný zdroj pravdy pro datový model, na kterém vše stojí, je model definující jednotlivé entity, jejich atributy a chování. V ukázce \ref{lst:models} je jeden z modelů, konkrétně lekce, vybral jsem jej proto, že je na něm možné ukázat více věcí -- je zde vidět pět atributů, některé jsou nepovinné (\verb|start| a \verb|group|), reprezentují různé typy polí (kladné číslo, cizí klíč, boolean, časová značka) a u cizích klíčů je vidět, na který model odkazují, mohou mít přidělené jméno (použije se při využití opačného vztahu v modelu skupin) a také mají definované chování při smazání příslušného záznamu, tedy kurz se podaří smazat pouze když k němu nejsou žádné lekce (ošetření, abychom nepřišli o žádné záznamy z historie) a v případě smazání skupiny se smažou mj. všechny její lekce.
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+class Lecture(models.Model):
+    start = models.DateTimeField(null=True)
+    canceled = models.BooleanField()
+    duration = models.PositiveIntegerField()
+    course = models.ForeignKey(Course, on_delete=models.PROTECT)
+    group = models.ForeignKey(Group, related_name='lectures',
+                              on_delete=models.CASCADE,
+                              null=True)
+    	\end{minted}
+    	\caption{Ukázka modelu lekce ze souboru models.py}\label{lst:models}
+    \end{listing}
+    
+    Postup při používání zmíněných migrací je jednoduchý. Při vytvoření či úpravě modelů je potřeba zavolat \verb|manage.py makemigrations| (vytvoří soubor s migracemi na základě provedených úprav, v případě nejasností nebo potřebě dalších informací mě vyzve k doplnění, tedy např. pokud měním atribut z nepovinného na povinný, vyzve mě k zadání výchozí hodnoty, která bude doplněna do stávajících záznamů bez vyplněného atributu) a poté změny aplikovat \verb|manage.py migrate|. V praxi tedy při vývoji upravím model, vytvořím příslušným příkazem soubor s migracemi (a s tím související doplňující informace), zkontroluji správné výsledky a funkčnost a výsledek zašlu do verzovacího systému, Travis a Heroku poté provedou příslušné migrace a změny jsou úspěšně provedeny ve všech prostředích konzistentně. Také je třeba dodat, že první migrací nevzniknou pouze naše tabulky, ale také pomocné tabulky Djanga potřebné pro správný chod (např. tabulka s uživateli, provedenými migracemi ad.).
+    
+    \section{API}
+    Mám připravený základ serverové části, tedy Djanga, které servíruje stránku s React aplikací a také modely Djanga, které umožní pracovat s entitami v projektu. Je potřeba vytvořit REST API, které umožní Reactu komunikovat se serverovou částí. V této části stručně shrnu, jak tvorba API probíhala. Vzhledem k tomu, že s tvorbou API je spojeno spoustu opakování podobného kódu, rozhodl jsem se využít služby dalšího frameworku, který mi v Djangu obstará jednoduché vytvoření REST API. Frameworků existuje několik, zvolil jsem nejpopulárnější, \href{http://www.django-rest-framework.org/}{\textit{Django REST Framework}} (dále DRF), který poskytuje užitečné nástroje a konstrukty k efektivní tvorbě API a zároveň obsahuje velkou škálu doplňkových knihoven od dalších členů komunity, které lze také využít \cite{drf2}. Pro následné testování a úpravy API jsem používal nástroj \href{https://www.getpostman.com/}{Postman}.
+    
+    Obecně se tvorba API v DRF dělí na několik částí: views (pohledy), serializery a URL mapování. Nejprve je potřeba zvolit URL adresu pro API požadavky, tato adresa bude jako jediná mít zvláštní chování, ostatní adresy jsou obslouženy Reactem, jak jsem nastavil v kapitole se základním nastavením \ref{zakladninastaveni}. Před řádek v ukázce kódu \ref{lst:urls.py} vložím další řádek uvedený v ukázce \ref{lst:urls.py2}, pokud bych jej vložil za, tak vzhledem k působnosti dříve vloženého kódu by převzal zodpovědnost za API React, což nechci. Nyní už stačí definovat konečné URL API, kde určím, která adresa využije který pohled, k tomu slouží v DRF router, který umožní jednoduchým způsobem definovat spojení URL adres s pohledy v souboru \verb|api/urls.py|, v ukázce kódu \ref{lst:apirouter} uvádím část pro lepší pochopení -- vybral jsem dva pohledy, které v dalším odstavci podrobněji ve zkratce představím a ukážu na nich další kroky při tvorbě API.
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+path('api/v1/', include('api.urls')),
+    	\end{minted}
+    	\caption{Druhá část kódu přidaná do urls.py}\label{lst:urls.py2}
+    \end{listing}
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+router = routers.DefaultRouter()
+router.register('courses', views.CourseViewSet)
+router.register('groups', views.GroupViewSet)
+    	\end{minted}
+    	\caption{Ukázka routeru pro API v souboru api/urls.py}\label{lst:apirouter}
+    \end{listing}
+    
+    DRF nabízí několik možností, jak vyřešit pohledy. Zvolil jsem tu, která by měla umožnit velmi jednoduše definovat celé API a obstarat automaticky pohled jak na detail (instanci entity), tak na kolekci (všechny instance entity) včetně všech operací, nazývá se ViewSet a API pohledy úzce mapuje na Django modely. Pohled může být definován poměrně snadno, jak je vidět v ukázce kódu \ref{lst:apiview1} ze souboru \verb|api/views.py| -- vytvořil jsem pohled pro kurzy, definoval jsem \verb|queryset|, tedy dotaz, který získá obsah pro odpověď na požadavek na API (v tomto případě i seřazený podle jména, to je definováno v modelu) a \verb|serializer_class|, tedy třídu použitou pro serializaci, validaci a deserializaci dat. Serializeru se budu věnovat v dalším odstavci. V druhé ukázce kódu pohledu \ref{lst:apiview2} je vidět, že přetěžuji metodu \verb|get_queryset|, to mi umožní vrátit v API odpovědi vyfiltrované výsledky, v tomto případě vrátím buď všechny skupiny (seřazené podle jména, to je definováno v modelu), nebo v případě zadání ID klienta všechny skupiny (opět seřazené podle jména), ve kterých je členem. Pro pokročilejší filtrování v API a také umožnění řazení přes parametry v adrese je pak u některých dalších pohledů využita knihovna \textit{django-filter}, díky které stačí zadat příslušné atributy a vše zařídí za nás.
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    	\end{minted}
+    	\caption{Jednoduchý pohled pro API v souboru api/views.py}\label{lst:apiview1}
+    \end{listing}
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+class GroupViewSet(viewsets.ModelViewSet):
+    serializer_class = GroupSerializer
+
+    def get_queryset(self):
+        qs = Group.objects.all() # qs znaci queryset
+        id_client = self.request.query_params.get('client')
+        if id_client is not None:
+            qs = qs.filter(memberships__client=id_client)
+        return qs
+    	\end{minted}
+    	\caption{Pokročilejší pohled pro API v souboru api/views.py}\label{lst:apiview2}
+    \end{listing}
+    
+    Poslední chybějící součástkou, kterou jsem ještě neukázal, jsou serializery. V ukázkách kódu \ref{lst:apiview1} a \ref{lst:apiview2} je vidět jejich používání, o kterém jsem mluvil v předchozím odstavci. Vzhledem k tomu, že jejich kód je delší, na ukázce \ref{lst:apiserializer1} je vidět ten nejjednodušší pro kurzy. K implementaci jsem použil \verb|ModelSerializer|, díky kterému je serializer úzce navázán na model a není potřeba opakovat zbytečně kód. Nevýhodou DRF je, že neposkytuje jednoduchou možnost, jak pracovat s vnořenými zdroji, se kterými jsem v rámci návrhu počítal -- cílem bylo např. získat lekci spolu s údaji klienta, ale při úpravě lekce už údaje klienta nevyžadovat, pouze jeho ID. Dokumentace tohoto frameworku je sice poměrně rozsáhlá, ale často je také poměrně krkolomná a spoustu údajů potřebných programátorem si nechá pro sebe a nebo není lehké je dohledat. Nakonec jsem přišel na způsob, jak by se tento problém měl řešit, v příslušných serializerech bylo potřeba u dotyčných atributů vždy vytvořit dvojici atributů, kdy ten s údaji klienta bude pouze pro čtení a název bude totožný s modelem a druhý atribut bude mít odlišný název (zvolil jsem vždy přidání \verb|_id| k původnímu názvu) a bude určen pouze pro zápis (navíc je se strany DRF pro korektní fungování vyžadován argument \verb|queryset|, také je použit argument \verb|source|, aby se daný atribut choval jako atribut původní), lze vidět na ukázce \ref{lst:apiserializer2}. Druhým souvisejícím problémem, který bylo potřeba vyřešit, byla práce se vnořenými zdroji při požadavcích POST, PUT a PATCH, například při vytvoření lekce je potřeba vytvořit také pro každého člena účast apod. Nakonec se i tento problém podařilo vyřešit přetížením metod \verb|create| a \verb|update| v příslušných serializerech (ukázku neuvádím kvůli delším kódům). Vytvoření funkčního API ale především kvůli těmto dvěma zmíněným problémům trvalo mnohem déle, než jsem očekával.
+    
+    Součástí některých odpovědí API, například při GET požadavku na lekce, jsou další informace určené pouze pro čtení a vypočítané na základě dat v databázi, jsou jimi například informace o číslu lekce v pořadí (v rámci jednoho klienta a daného kurzu) či informace, zda má příště platit. Bylo tedy potřeba je důkladně promyslet a otestovat, příkladem budiž číslo lekce -- abychom zjistili, kolik už uběhlo lekcí, a tedy s přičtením jedné zjistili, kolikátá je zrovna tato lekce, je potřeba vzít v úvahu, zda se jedná o naplánovanou lekci bez datumu (ta nemá číslo), o skupinovou lekci (zde se zjišťuje číslo jednodušeji, stačí vzít lekce skupiny, vyselektovat pouze ty, které jsou dříve než datum aktuální lekce, nejsou nenaplánované a ani zrušené) a nebo o individuální lekci (zde vezmu lekce klienta náležící k danému kurzu, pouze individuální, s určeným datumem, který je dříve než datum u aktuální lekce, nezrušené a se stavem účasti odpovídajícím tomu, že se dostavil).
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+    	\end{minted}
+    	\caption{Pokročilejší pohled pro API v souboru api/views.py}\label{lst:apiserializer1}
+    \end{listing}
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+client = ClientSerializer(read_only=True)
+client_id = serializers.PrimaryKeyRelatedField(
+        queryset=Client.objects.all(), source='client',
+        write_only=True)
+    	\end{minted}
+    	\caption{Práce se vnořenými zdroji v serializeru}\label{lst:apiserializer2}
+    \end{listing}
+    
+    \section{Klientská část}
+    Pro klientskou část je, jak jsem již zmínil při volbě architektury v kapitole \ref{reseni}, zvolena knihovna React, která mi umožní vytvořit interaktivní aplikaci a jednoduše ji dále rozšiřovat a rozvíjet díky architektuře CBA (viz. \ref{cba}). V této části stručně popíši, jak jsem při tvorbě klientské části postupoval.
+    
+    \subsection{Vzhled}
+    Součástí tvorby klientské části bylo rozhodnutí, zda zvolit pro řešení stylu zobrazení nějakou předpřipravenou šablonu nebo framework. Co se týče šablon, nalezl jsem několik takových, které byly postaveny na Reactu, jako např. \href{https://github.com/MacKentoch/react-director-admin-template}{\textit{react-director-admin-template}}, \href{https://github.com/booleanhunter/ReactJS-AdminLTE}{\textit{ReactJS-AdminLTE}},
+    \href{https://github.com/marmelab/admin-on-rest}{\textit{admin-on-rest}} (který umožňuje napojit administraci přímo na REST API),
+    \href{https://github.com/ant-design/ant-design-pro/}{\textit{Ant Design Pro}},
+    \href{https://github.com/mrholek/CoreUI-React}{\textit{CoreUI-React}}, k jejich použití jsem ale nepřistoupil, protože by buď byly zbytečně megalomanské a třeba ztížily orientaci v rámci aplikace, nebo měly špatnou (či čínskou) dokumentaci, omezené funkce zdarma apod., mohlo by se stát, že by se špatně přizpůsobovaly pozdějším požadavkům. Naproti tomu jsem se rozhodl využít služby frameworku \href{https://getbootstrap.com}{\textit{Bootstrap}}, který v lednu 2018 přišel s dlouho očekávanou přepracovanou 4. verzí. Díky němu se můžu při vývoji mnohem hlouběji zaměřit na funkcionalitu, protože se postará o spoustu věcí za mě, dalším menším důvodem použití také je, že je mezi vývojáři velmi populární, neměl jsem nikdy možnost ho vyzkoušet (volil jsem vždy svůj vlastní kód) a zaujaly mě novinky v poslední verzi, které by vývoj této aplikace usnadnily. Abych mohl Bootstrap pohodlně v Reactu používat, použil jsem nástroj \href{https://github.com/reactstrap/reactstrap}{\textit{reactstrap}}, díky kterému mohu Bootstrap komponenty vkládat jako bezstavové komponenty Reactu. Pro pokročilejší úpravy jsem také použil knihovny \href{https://github.com/fkhadra/react-toastify}{\textit{react-toastify}} pro oznámení, \href{https://github.com/JedWatson/react-select}{\textit{react-select}} pro usnadnění tvorby a práce s poli ve formuláři, kde je potřeba provést násobný výběr (např. členové skupiny) tak, aby byl intuitivně spravovatelný. Napříč celou aplikací také používám balíček a nástroj pro ikony \href{https://fontawesome.com/}{\textit{fontawesome}} -- použiji zde poprvé nejnovější verzi 5, která je zcela přepracovaná a rozšířená oproti předchozím verzím, se kterými mám výborné zkušenosti, balíček bude v placené verzi PRO (verze ikon SOLID), kterou mám již zakoupenou a opět pro jednodušší použití jako komponenty Reactu dodávám i oficiální knihovnu \href{https://github.com/FortAwesome/react-fontawesome}{\textit{react-fontawesome}}.
+    
+    \subsection{Základní práce s Reactem}\label{sec:zakladniPraceSReactem}
+    Prošel jsem všechny potřebné závislosti, nástroje, knihovny a konfigurace a nyní tak mohu ukázat, jak jsem postupoval při samotné tvorbě aplikace v Reactu. Vývoj probíhal v nejnovější verzi 16.2, předem bych ale rád podotkl, že na závěr vývoje došlo k vydání verze 16.3, která přinesla několik novinek, zejména v oblasti životního cyklu komponenty (změna API) a Context API, které usnadňuje předávání dat mezi komponentami napříč jejích stromem \cite{react-blog1}. U Contextu bych se rád zastavil, teprve se začíná používat (byl představen na konci března 2018), ale už teď lze říci, že doplňuje chybějící článek Reactu, kvůli kterému mnoho vývojářů používalo Redux. Redux se používá se pro správu stavu aplikace, jak ale říká jeho autor a dnes také přední vývojář Reactu v \cite{react-blog3}, často se používá zbytečně a komplikuje tak vývoj aplikace, který by byl jinak mnohem rychlejší a kratší. Rozhodl jsem se pro tuto práci respektovat jeho doporučení, tedy nejdříve vytvořit čistou aplikaci v Reactu, pochopit všechny aspekty takové tvorby a fungování a pak teprve uvažovat o tom, zda je potřeba Redux využít (případně použít nové Context API). Aplikace nyní běží na verzi 16.3, zatím ale nevyužívá žádné z jejích novinek, vzhledem k úpravě API životního cyklu komponenty je ale potřeba počítat s drobnějšími změnami, které budu muset provést až přijde verze 17 \cite{react-blog2}.
+    
+    Ještě než se pustím do popisu práce s Reactem, rád bych uvedl jednu z knih -- \textit{React Design Patterns and Best Practices} \cite{react-kniha}, ze které jsem při seznamování se s Reactem vycházel. Kromě podrobných popisů fungování jednotlivých součástí Reactu obsahuje mnoho rad a tipů, jak psát efektivní, rozšířitelný, znovupoužitelný a čistý kód v Reactu. Vzhledem k její rozsáhlosti a pokročilosti s ní plánuji pracovat i při dalším vývoji této aplikace po odevzdání práce.
+    
+    \begin{listing}[ht]
+    	\begin{minted}{js}
+import React from 'react'
+import {Badge} from 'reactstrap'
+
+const RemindPay = ({remind_pay}) =>
+    (remind_pay && 
+        <Badge color="warning" pill>Příště platit</Badge>)
+
+export default RemindPay
+    	\end{minted}
+    	\caption{Jednoduchá bezstavová komponenta Reactu}\label{lst:react1}
+    \end{listing}
+    
+    V Reactu je vše rozdělené do komponent, které obsahují celý kód a logiku obstarávající její korektní vykreslení a práci. Každá takováto komponenta může mít v sobě dva typy dat \cite{react-docs1}:
+    \begin{itemize}
+        \item \enquote{props} atributy, které může získat od rodiče, komponenta je nemůže měnit (patří do správy nadřazené komponenty), jsou tedy podobné parametrům funkcí,
+        \item \enquote{state}, tedy stav, který se nedědí a je spravován uvnitř komponenty, je tedy podobný proměnným ve funkcích.
+    \end{itemize}
+    Díky těmto atributům React zařídí překreslení pouze té části dokumentu, kde je potřeba projevení změn atributů. Velmi jednoduchá bezstavová komponenta využívající nejnovější prvky syntaxe JS, kterou používám napříč aplikací k informování, zda má klient příště platit, je v ukázce \ref{lst:react1}. V aplikaci dále používám i pokročilejší stavové komponenty, pro lepší pochopení a popis vkládám ukázku \ref{lst:react2} (kód je z úsporných důvodů nehezky zarovnaný), která obsahuje i komentáře, kde se nachází které části kódu a jejich účel, zdůrazním zde metodu \verb|componentWillReceiveProps|, která je zde proto, že v rodiči se provádí asynchronní požadavek na API a některý z jeho výsledků se předává do této komponenty, tedy do potomka, a zde se na jeho základě komponenta vykresluje, vzhledem k tomu, že jsou \enquote{props} samy o sobě neměnné, je třeba nový stav z potomka zpracovat v této metodě a změny zde projevit do vlastního stavu komponenty. Jak je vidět v obou ukázkách, napříč celou aplikací je v JS držena konvence bez středníků.
+    
+    \begin{listing}[ht]
+    	\begin{minted}{js}
+import React, {Component} from "react"
+// import dalších JS komponent a CSS souborů
+export default class NazevKomponenty extends Component {
+    constructor(props) {
+    /* nastavení stavu a dalších proměnných/props*/}
+    dalsiFunkce = () => {/* tělo funkce */}
+    componentDidMount() {/* požadavky na API */}
+    componentWillReceiveProps(nextProps) {
+    /* aktualizace stavu při změně stavu rodiče */}
+    render() {
+    // příprava dalších komponent a proměnných
+        return (<div>{/* vykreslení v JSX */}</div>)}
+}
+    	\end{minted}
+    	\caption{Kostra pokročilejší komponenty v Reactu}\label{lst:react2}
+    \end{listing}
+    
+    \subsection{Routování a HTTP požadavky v Reactu}
+    Nyní chybí dořešit poslední dvě části v Reactu: routování a komunikaci přes API, ani jedno totiž React v základu nemá, jak již bylo řečeno v kapitole \ref{react}. Pro routování jsem zvolil knihovnu \href{https://reacttraining.com/}{\textit{React Router}}, která mi umožní v Reactu snadno implementovat SPA a zajistí také fungování tak, jak by uživatel očekával, tedy při přechodech se mění URL adresa v prohlížeči, korektně funguje navigace napříč historií apod. K tomu využívám \verb|BrowserRouter|, který se nově objevil v přepracované poslední čtvrté verzi této knihovny, oproti \verb|HashRouter| předpokládá funkční routování i na straně serveru (HashRouter totiž nepoužívá běžnou čistou URL, ale pracuje s fragmentem URL za přidaným znakem \verb|#|), to je díky kódu \ref{lst:urls.py} zařízeno, nic tedy nebrání použít naplno tuto novou komponentu.
+    % ukazka routeru?
+    
+    \begin{listing}[ht]
+    	\begin{minted}{js}
+getClients = () => {
+    ClientService
+        .getAll()
+        .then((response) => {
+            this.setState({clients: response, loading: false})
+        })
+}
+    	\end{minted}
+    	\caption{Kostra pokročilejší komponenty v Reactu}\label{lst:react3}
+    \end{listing}
+    
+    Pro komunikaci Reactu s vystaveným REST API jsem použil velmi populární a častou volbu vývojářů nejen pro React, knihovnu \href{https://github.com/axios/axios}{\textit{Axios}}, ačkoliv se už pomalu začíná rozšiřovat standardizované JS Fetch API, Axios nabízí širší a jednoduší možnosti práce s asynchronními požadavky (např. odchytávání pomocí \enquote{interceptorů}, zabudovanou CSRF ochranu (viz. sekce \ref{sec:bezpecnost})) a také zaručuje kompatibilitu ve všech prohlížečích. Protože bylo potřeba mít k dispozici jednotnou správu nad všemi požadavky včetně odchytávání chyb a konfigurace, vytvořil jsem jednotné rozhraní pro požadavky, které jsem doplnil o vytvoření služeb pro každou využívanou část API, v samotné stránce, kde probíhá požadavek na API, tedy nejsou žádné konfigurační informace ani URL adresa apod. a lze tak vše snadno upravovat a třeba i snadno vyměnit knihovnu pro požadavky za jinou. Na ukázce \ref{lst:react3} přikládám výsledný kód, který využívá importovanou službu, která poté zavolá jednotné rozhraní pro požadavky, kde teprve proběhne vytvoření a zaslání požadavku prostřednictvím Axiosu na API a v případě úspěchu se výsledek uloží do stavu komponenty a komponenta se tak překreslí. V této ukázce je také vidět přenastavení atributu \verb|loading|, díky tomu může být v příslušné komponentě zobrazena načítací animace, dokud komponenta neobdrží příslušná data, toto načítání se nachází pouze tam, kde je potřeba, tedy například při načítání lekcí v týdenním přehledu jsou okamžitě zobrazeny všechny pracovní dny i s jejich boxy, díky rozdělení na komponenty má každý box své načítání a tato animace zmizí vždy právě tehdy, když se načtou data do příslušného boxu. Uživatel tedy mezitím může provádět další operace a vidí, že už je požadavek zakončený.
+    
+    \subsection{Další práce s JS}
+    Ačkoliv Babel spolu s dalšími polyfilly umožní vytvářet kód s co nejvyšší možností kompatibility napříč různými prohlížeči, bylo třeba i tak dbát na ověření této kompatibility. V rámci vývoje jsem například zjistil, že prohlížeče Safari a Internet Explorer jinak pracují s datumy dle standardu ISO, což vyústilo v některé chyby v aplikaci, musel jsem tedy upravit práci s datumy tak, aby byl kód kompatibilní i v těchto prohlížečích. Další s ISO standardem související problém byl, že v JS se pracuje s datumy v tomto formátu pouze s časovou zónou UTC, ačkoliv jsou třeba v jiné. To vyústilo v situaci, že vždy mezi půlnocí a jednou hodinou ranní byly v týdenním přehledu zobrazeny špatné dny (tedy při letním čase dokonce od půlnoci do dvou hodin ráno), byl jsem tedy nucen pro tuto práci s datumy vytvořit vlastní funkce, které respektovaly i další časové zóny.
+    
+    \section{Bezpečnost}\label{sec:bezpecnost}
+    Vzhledem k tomu, že se v aplikaci nacházejí důvěrné informace, je potřeba zvolit adekvátní úroveň zabezpečení. V této sekci stručně shrnu kroky, které jsem učinil k zabezpečení aplikace, zejména zabezpečení komunikace a přihlašování.
+    
+    Je potřeba využívat protokol HTTPS, díky kterému bude komunikace šifrovaná -- Heroku HTTPS nabízí pro aplikace bez vlastní domény zdarma SSL certifikát, bylo tedy nutné jen zajistit přesměrování veškeré komunikace na zabezpečenou. To zajistí konfigurace Djanga, konkrétně proměnná \verb|SECURE_SSL_REDIRECT|.
+    
+    Ve webových aplikacích se často objevují některé bezpečnostní chyby, podle \cite{bezpecnost1} a \cite{bezpecnost2} zejména:
+    \begin{itemize}
+        \item SQL Injection -- vložení škodlivého kódu z důvodu špatné ošetření parametrů při tvorbě SQL dotazů,
+        \item XSS (Cross Site Scripting) -- narušení SQL dotazu kvůli nedostatečnému ošetření vstupů od uživatele
+        \item CSRF (Cross Site Request Forgery) -- tajné vykonání požadavku z důvodu neošetření původu požadavku
+        \item Clickjacking -- součástí podvodné stránky je jiná stránka a uživatelem provedená akce vyústí v nezamýšlené akce na jiné stránce
+    \end{itemize}
+    Využil jsem možnosti Djanga v oblasti bezpečnosti \cite{bezpecnost1} a nakonfiguroval jej tak, aby rizika i těchto hrozeb eliminovalo na minimum, díky ORM není problém s SQL Injection a díky dalším konfiguracím ani s ostatními (a nejen těmi) problémy. Správné nastavení bylo mj. ověřeno i nástrojem \verb|check| v Djangu, o kterém jsem se zmínil v sekci \ref{sec:zakladniNastaveni}. Některé problémy vyžadují při komunikování zaslání dodatečných informací sloužících k rozpoznání potenciálních útoků, z toho důvodu bylo potřeba adekvátně nastavit i klienta Axios pro HTTP požadavky z klientské části. V neposlední řadě se o většinu XSS problémů stará i React (funkce, které jsou bez ochrany se v této aplikaci nepoužívají) \cite{bezpecnost3}.
+    % zminit localstorage?
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+path('jwt-auth/', obtain_jwt_token),
+path('jwt-refresh/', refresh_jwt_token),
+    	\end{minted}
+    	\caption{API pro přihlašování}\label{lst:jwt}
+    \end{listing}
+    
+    Pro přihlašování jsem zvolil metodu JSON Web Token (JWT), která je standardizovaná v RFC 7519. Mezi serverem a klientem se podle \cite{jwt1} posílá malý JSON objekt (token), který může být ověřen a je důvěryhodný, protože je podepsaný. Díky tomu není potřeba zatěžovat databázi opakujícími se dotazy, protože součástí objektu jsou všechno potřebné informace (hlavička s nastavením, tělo s informacemi o uživateli a expirací a podpis). Django REST Framework obsahuje připravených několik možností pro přihlášení \cite{drf1}, ale místo JWT obsahuje vlastní přihlašování přes tokeny, které ale oproti JWT používá pro validaci tokenu na straně serveru při každém dotazu databázi, zvolil jsem tedy doporučenou knihovnu \href{http://getblimp.github.io/django-rest-framework-jwt/}{\textit{Django REST framework JWT}}, která zjednodušuje celou implementaci JWT metody. Vystaví se zde dva koncové body API pro autentikaci a obnovení tokenu, jak je v ukázce \ref{lst:jwt}. Samotná autentikace funguje tak, že se uživatel přihlásí, obdrží JSON Web Token, kterým se pak při další komunikaci prokazuje. Jelikož má token nastavenou určitou dobu expirace, pokud se uživatel v aplikaci pohybuje mezi jednotlivými stránkami a blíží se doba vypršení, pošle se požadavek na API o obnovení tokenu, zašle se původní a pokud je vše v pořádku, server vrátí token s prodlouženou expirací, doba, po jakou lze prodlužovat je opět omezená. Aby se mohla expirace tokenu ověřovat na straně klienta a v případě nutnosti token zaslat před vypršením k obnově, je potřeba převést token v JS do čitelného formátu, k tomu je použita jednoduchá knihovna \href{https://github.com/auth0/jwt-decode}{\textit{jwt-decode}}.
+
+    
+\chapter{Testování}\label{testovani}
+    Testování aplikace bylo rozděleno na několik částí. Jak již bylo řečeno v části o nástrojích pro vývoj \ref{nastrojeprovyvoj}, bylo vytvořena sada základních testů, které se automaticky během celého vývoje spouští na integračním serveru Travis CI, o tom více povím v první části. V další části popíši výstupy a provedené úpravy na základě vlastního testování, které jsem provedl na závěr vývoje, abych ověřil splnění požadavků a dobré fungování aplikace. Vlastní testování probíhalo samozřejmě v průběhu celého projektu, z pohledu této práce jsou ale nejzajímavější výsledky závěrečného testování. Stejně tak v průběhu samotného vývoje jsme s lektorkou procházeli dodané a upravené části, aby bylo zajištěno, že se vývoj ubírá správným směrem. V poslední části popíši a uvedu výsledky akceptačního testování. 
+
+    \section{Automatizované testování}
+    Součástí vývoje bylo automatizované testování, které se může spouštět jak na lokálním stroji, tak na integračním serveru. V této části popíši, co vše má zvolený nástroj na integraci Travis CI za úkol a jaké základní testy byly vytvořeny.
+    
+    Pro konfiguraci prostředí integračního serveru používá konfigurační soubor \verb|.travis.yml|, v ukázce \ref{travis} je část souboru (některé příkazy jsou zkráceny třemi tečkami nebo rovnou smazány, ponecháno je jen to nejdůležitější). Práce na Travisu je rozdělena do několika fází, tyto fáze dále nabízí ještě akce, které se provedou před a po. Nejdříve se zvolí jazyk projektu a další technologie, v tomto případě Python, Node.js a PostgreSQL, zaktualizuje se Node.js a balíčkovací systém \verb|npm|, nainstaluje se balíčkovací systém yarn, nastaví se do globální proměnné, které nastavení pro Django se využije, nainstalují se veškeré závislosti jak pro Python, tak pro Javascript (součástí toho se po instalaci automaticky vytvoří ze všech závislostí jeden sestavený JS a CSS soubor), vytvoří se databáze pro testování, díky \verb|migrate| se naplní příslušnými tabulkami v souladu s Django modely, \verb|collectstatic| zkopíruje všechny statické soubory do jedné složky, která se použije na produkci a na závěr se spustí všechny připravené testy (spolu s počítáním pokrytí kódu). O některých dalších částech konfigurace týkajících se průběžného nasazování budu hovořit v následující kapitole o nasazení \ref{nasazeni}, pro účely jak testování, tak i nasazení, je samozřejmě potřeba několik dalších souborů v kořenovém adresáři:
+    \begin{itemize}
+        \item \textbf{requirements.txt} -- závislosti na balíčcích Pythonu včetně Djanga,
+        \item \textbf{package.json} -- závislosti na balíčcích JS včetně Reactu a další konfigurace,
+    \end{itemize}
+    
+    \begin{listing}[ht]
+    	\begin{minted}{yaml}
+language: python
+python: '3.6.5'
+node_js: '8'
+services: postgresql
+before_install:
+  - nvm install 8.11.1
+  - npm i -g npm
+  - npm install -g yarn
+  - export DJANGO_SETTINGS_MODULE=up.production_settings
+install:
+  - pip install -r requirements.txt
+  - pip install codecov
+  - yarn install
+before_script: psql -c 'create database ci_test;' -U postgres
+script:
+  - python manage.py migrate
+  - python manage.py collectstatic --noinput
+  - coverage run --source=admin,api --omit=... manage.py test
+    	\end{minted}
+    	\caption{Část konfigurace Travis CI v souboru .travis.yml}\label{travis}
+    \end{listing}
+    
+    Pro testování bylo vytvořeno několik základních testů, jejich rozšíření a pokrytí co největší části systému je plánováno v blízké budoucnosti, protože vývoj této aplikace bude pokračovat i po této práci. Využívají nástroje pro testování přímo od frameworků Django a Django REST. Testy ověřují především:
+        \begin{itemize}
+            \item správné vytvoření databáze,
+            \item funkčnost přidávání do databáze přes Django modely,
+            \item správnou funkčnost Django pohledů, zda je uživateli při příchodu na web ukázána správná stránka a její obsah je správný,
+            \item funkčnost API požadavků včetně autorizace, vytvoření uživatele pro administraci, získání tokenu, vytvoření klienta přes API -- je tedy vytvořen účet pro uživatele aplikace, pro ten se vyzkouší získání jeho tokenu prostřednictvím API a následně se provede přes API autorizovaný pokus (s tokenem) o přidání klienta a zkontroluje se, zda byl přidán.
+        \end{itemize}
+
+    \section{Vlastní testování}
+    Pro ověření toho, že aplikace skutečně splňuje všechny požadavky a funguje korektně jsem ji na závěr vývoje sám otestoval. Jednalo se jak o testy funkční (tedy zda aplikace správně plní vše, k čemu je určena), tak nefunkční (např. responzivita, kompatibilita v prohlížečích), součástí této kontroly byla i kontrola všech kódů, a to jak pro odhalení možných chyb, tak pro ověření, že je aplikace korektně navržená a bude tak v budoucnu díky tomu snadněji rozšířitelná a udržovatelná (tedy např. konstanty, neopakující se kód, potenciální špatné ošetření apod.).
+    
+        \begin{itemize}
+            \item telefonní číslo lze zadat v neexistujícím formátu (např. osmičíselně) -- vyřešeno nastavením minimální délky na 9,
+            \item ve formuláři pro přidání lekce není automaticky předvybrán stav účasti "OK" -- opraveno,
+            \item ve formuláři pro přidání lekce není při odeslání vyžadován datum a čas, ačkoliv to tak server vyžaduje -- opraveno doplněním atributu \verb|required| pro obě pole, doplněno také kontrolování validity datumu (nastavení minimálního a maximálního možného zadaného roku),
+            \item server akceptuje pouze neprázdné názvy lekcí a kurzů, dotyčné formuláře v aplikaci ale při odeslání toto explicitně nekontrolují -- opraveno doplněním atributu \verb|required| pro obě pole,
+            \item pokud skupina nebo klient nemají žádné lekce, je karta s lekcemi prázdná a uživatel není nijak informován o tom, že žádné lekce nejsou -- vyřešeno zobrazením "žádné lekce", pokud klient nebo skupina ještě nemají žádné lekce,
+            \item při analýze dotazů na API přes nástroje pro vývojáře v prohlížeči (část pro síťové požadavky) bylo zjištěno, že při zobrazení týdenního přehledu se zbytečně odesílá pětkrát (tedy tolikrát, kolik je zobrazeno dnů) požadavek na zjištění možných stavů účasti, tyto stavy jsou pro všechny dny stejné a stačí je tedy načíst jednou -- upraveno, stavy se načtou pouze jednou a poté se předají příslušným komponentám zobrazujícím jednotlivé dny,
+            \item v týdenním přehledu není zobrazený aktuální den, uživatel se tak zbytečně musí zdržovat s jeho hledáním -- vyřešeno barevným odlišením aktuálního dne,
+            \item pokud má klient jak skupinové lekce nějakého kurzu, tak i individuální lekce téhož kurzu a zároveň je ve skupině první při seřazení podle abecedy dle příjmení, číslo lekce kurzu je oproti očekávání vyšší (dojde k započítání individuálních i skupinových lekcí) -- v API opraven špatný dotaz na databázi, nyní se už filtruje dle individuálních a skupinových lekcí,
+            \item upozornění, že má klient příště platit, je někdy zobrazeno i v případě, že má příští lekci už zaplacenou -- vyřešeno úpravou dotazu na databázi (při výpočtu opět nebyl brán ohled na to, zda lekce daného kurzu je skupinová nebo individuální),
+            \item v dotazu na číslo lekce se pro skupinové lekce zbytečně prochází větší část databáze, než je potřeba -- vyřešeno zjednodušením dotazu, který nyní pracuje pouze s tabulkou \verb|Lecture|, která obsahuje méně dat než původní tabulka \verb|Attendance|,
+            \item na systému iOS se pole pro zadání datumu a času zobrazovala špatně (měla nízkou výšku) -- opraveno.
+        \end{itemize}
+    
+    \section{Akceptační testování}
+    Po provedení úprav na základě vlastního testování v předchozí části jsem přistoupil k akceptačnímu testování. Aplikace byla díky Travisu již připravená ve své nejnovější verzi na produkčním serveru na Heroku. Pro akceptační testování se obvykle vytvářejí scénáře, které nejprve testuje programátor a poté jsou testovány zákazníkem. Vzhledem k tomu, že bylo potřeba, aby lektorka tak či tak naplnila aplikaci daty ze všech svých zdrojů, kde jednotlivé informace eviduje (tedy z Excelu, diáře, poznámek na papírech apod.), rozhodl jsem se jako scénář použít prakticky toto zadávání stávajících údajů, které vzhledem k počtu údajů pokryje všechny možnosti úkonů.
+    
+    Akceptační testování bylo prakticky spojeno i s testováním použitelnosti (tedy pozorování uživatele a nalezení nedostatků, které jsem mohl přehlédnout v důsledku toho, že jsem aplikaci sám vytvářel). Testování bylo úspěšně provedeno a na základě pozorování práce lektorky v aplikaci a také jejích postřehů bylo nalezeno několik problémů a možných vylepšení, vybrané nejdůležitější uvádím v seznamu spolu se způsobem jejich řešení:
+    
+        \begin{itemize}
+            \item ve formuláři pro úpravu klienta je pole moc malé, je potřeba umožnit psát více řádků -- vyřešeno zobrazením \verb|textarea| místo stávajícího \verb|input| pole,
+            \item v kartě klienta chybí zobrazení údajů klienta včetně členství ve skupinách -- doplněno (stačilo využít již připravené API),
+            \item v kartě skupiny chybí zobrazení aktuálních členů -- doplněno (opět stačilo využít již připravené API),
+            \item při přidávání položek není automaticky předvybráno ke psaní první pole ve formuláři a lektorka si často nevšimne, že nikam napíše -- nastaveno automatické vybrání prvního pole pro všechny formuláře, kde je to potřeba,
+            \item při přidávání kurzu a stavu účasti je u pole pro název napsáno jméno, to je pro lektorku matoucí (i kvůli tomu, že v přehledu stavů účasti i kurzů je v záhlaví tabulky nekonzistentně uveden \enquote{název}) a svádí to ke psaní jména klienta -- změněno na název,
+            \item v kartě klienta není poznat, že není ve skupině nebo že není zadán telefon (u skupin dokonce není zobrazeni v řádku ani \enquote{Členství ve skupinách}, pokud v žádných skupinách klient není) -- upraveno, u skupin i ostatních údajů se zobrazí tři pomlčky,
+            \item skupiny většinou mají délku lekce 45, bylo by tedy vhodné, aby místo výchozích 30 (které zůstanou u jednotlivců) bylo automaticky přednastaveno 45 -- doplněno,
+            \item při označení stávající lekce jako nepředplacené se nezaplacené termíny označily jako zaplacené -- opraveno,
+            \item skupinová lekce se špatně ruší, protože se musí se u každého člena zadat zrušeno -- doplněna nová funkcionalita pro jednoduché rušení lekcí (jak individuálních, tak skupinových).
+        \end{itemize}
+        
+        
+\chapter{Nasazení}\label{nasazeni}
+    V této části popíši, jak probíhá nasazení aplikace na Heroku, a které kroky k tomu bylo potřeba udělat. Naváži tak na předchozí kapitolu o testování \ref{testovani}, kde je popsán proces testování na integračním serveru, protože Travis CI kromě samotné průběžné integrace v této práci obstará i průběžné dodávání. Způsoby nasazení čerpají z dokumentací jednotlivých knihoven, jež jsou příslušně ocitovány v daných větách, dále vycházím z dokumentace od Heroku pro webové aplikace Python \cite{heroku-python} a Django tutoriálu v dokumentaci Mozilla Developer Center \cite{mdn-django}.
+    
+    Jak již bylo zmíněno při volbě technologií v kapitole \ref{reseni}, pro nasazení bylo zvoleno Heroku, o kterém jsem více psal v kapitole \ref{heroku}. Heroku poskytuje připravené řešení infrastruktury přímo pro tuto aplikaci a je možné jej používat zdarma, případně za menší poplatek, pokud bude potřeba se zbavit některých omezení. Aplikace na Heroku běží v tzv. dyno kontejnerech, což jsou izolované virtuální linuxové kontejnery, které pro aplikaci poskytnou potřebné prostředí pro běh. Aplikaci, kontejner a doplňky (jako např. databázi PostgreSQL) lze ovládat buď přes základní webové rozhraní a nebo přes Heroku terminál
+    
+    \section{Základní nastavení}\label{sec:zakladniNastaveni}
+    Jak již bylo naznačeno v ukázce konfiguračního souboru pro Travis \ref{travis}, pro testování na integračním serveru a pro produkci je vytvořené zvláštní soubor s nastavením Djanga oproti tomu, které se používá při lokálním vývoji a testování. Díky tomu lze pro produkci nastavit vyšší zabezpečení, větší výkon, jinou databázi ad. Autoři Djanga se práci snažili maximálně zjednodušit, a tak mám k dispozici mnoho nástrojů od \verb|manage.py| až po seznam doporučení při nasazení \cite{django-checklist} spolu s jednoduchým příkazem \verb|manage.py check --deploy|, který projde projekt a upozorní mě na možná vylepšení. Některé proměnné se z důvodu bezpečnosti doporučuje dodávat z proměnných v našem prostředí Heroku, jako např. adresu databáze nebo tajný klíč pro Django. Co se týče databáze, k jednoduchému rozparsování informací o databázi z této proměnné do nastavení Djanga využívám doporučený nástroj \href{https://github.com/kennethreitz/dj-database-url}{dj-database-url}.
+    
+    \section{Produkční server a statické soubory}
+    Vzhledem k tomu, že vývojový server, který Django poskytuje, není určený pro produkční užití \cite{django-managepy}, je obecně doporučeno využít server Gunicorn, který jsem již popsal v kapitole \ref{architektura}. Pro produkci je také nevhodné, aby byly statické soubory jako JS a CSS servírovány prostřednictvím Djanga, jako při vývoji, a tak jsem zvolil efektivnější řešení (opět doporučované přímo od Heroku), tím je knihovna WhiteNoise \cite{whitenoise}, která umožní efektivně servírovat zkomprimované soubory na produkci přímo z Gunicornu, k tomu stačí stáhnout knihovnu, přidat ji do nastavení Djanga do \verb|MIDDLEWARE| a také zde nastavit kompresi souborů, která je volitelná, naimportovat WhiteNoise do WSGI konfigurace v již existujícím souboru \verb|wsgi.py| a zaobalit v něm již existující aplikaci do instance WhiteNoise (ukázka \ref{lst:wsgi}).
+    
+    \section{Nastavení Heroku a Travisu}
+    Pro využití Heroku je třeba se zaregistrovat, poté vytvořit aplikaci, v tomto případě s názvem \enquote{uspesnyprvnacek}, při tvorbě je možnost zvolit servery v Evropě, díky kterým mám jistotu rychlejší odezvy. Poté jsem ve webovém rozhraní přidal databázi PostgreSQL jako doplněk k aplikaci. Databázi Heroku jsem také připojil do DataGripu, díky tomu pak bylo možné přistupovat k datům ve vzdálené databázi ze stejného místa jako k lokálním, pro správnou funkčnost je ale potřeba přidat do URL databáze parametr \verb|sslmode=require|, protože Heroku umožňuje externím komunikacím přistupovat k databázi jen s aktivním SSL. Pro další konfiguraci nasazení na Heroku je potřeba dodat do kořenové složky několik souborů:
+    \begin{itemize}
+        \item \textbf{runtime.txt} -- programovací jazyk projektu a verze,
+        \item \textbf{pakage.json} -- závislosti pro JS a také skript, který se pustí po instalaci,
+        \item \textbf{Procfile} -- seznam procesů, které se mají provést pro start webové aplikace, je vidět v ukázce kódu \ref{lst:procfile}, kde je nejdříve spuštěn skript, který provede příkazy \verb|collectstatic| (shromáždění statických souborů, které sice Heroku může provádět automaticky, v případě této aplikace jsem ale tuto možnost deaktivoval, protože je potřeba tomuto příkazu předat správný soubor s produkčním nastavením) a \verb|migrate| (tedy migraci databáze na její připadnou novou verzi) a v kontejneru startuje webový server.
+    \end{itemize}
+    
+    \begin{listing}[ht]
+    	\begin{minted}{python}
+from whitenoise.django import DjangoWhiteNoise
+...
+application = DjangoWhiteNoise(application)
+    	\end{minted}
+    	\caption{Přidaný kód do souboru wsgi.py}\label{lst:wsgi}
+    \end{listing}
+    
+    \begin{listing}[ht]
+    	\begin{minted}{yaml}
+deploy:
+  provider: heroku
+  api_key:
+    secure: ...
+  app: uspesnyprvnacek
+    	\end{minted}
+    	\caption{Konfigurace Travis CI v souboru .travis.yml}\label{travis2}
+    \end{listing}
+    
+    \begin{listing}[ht]
+    	\begin{minted}{yaml}
+release: bash release-tasks.sh
+web: gunicorn up.wsgi --log-file -
+    	\end{minted}
+    	\caption{Soubor Procfile}\label{lst:procfile}
+    \end{listing}
+    
+    Díky možnosti Heroku propojit s Travisem \cite{travis-heroku} tedy mám možnost zprovoznit i průběžné nasazení v případě, že na integračním serveru nenastane žádný problém a vše se s úspěchem otestuje a vytvoří se úspěšně nový build. Po splnění všech předešlých kroků a konfiguraci Travisu, jejíž část je vidět v ukázce \ref{travis2} (pro vytvoření této části bylo potřeba nainstalovat Travis terminál a využít zde příkazy pro zašifrování Heroku tokenu), se tedy začne vytvářet build na Heroku a pokud vše proběhne bez problémů, provedou se příkazy podle souboru \verb|Procfile| a aplikace je nasazena. Celý tento proces mám díky konfiguraci Travisu možnost sledovat v jeho logu. Pokud se jedná o první nasazení a v databázi ještě nejsou data, je třeba vytvořit účet pro uživatele, který bude použit pro přihlášení do aplikace, k tomu využijeme, stejně jako v případě lokálního vývoje, příkaz \verb|manage.py createsuperuser|, který zadám do Heroku terminálu, ještě jej ale doplním o název aplikace, interpretr Pythonu a produkční nastavení.
+    
+
+\chapter{Další možná rozšíření}\label{dalsirozsireni}
+Vytvořená aplikace je základem ÚP a už teď jsou ve fázi plánů a návrhů další funkcionality, které jsou potřeba. Týkají se jak doplnění funkcí do stávající evidence kurzů, lekcí, klientů a skupin, tak rozšíření aplikace o další části. Cílem této krátké kapitoly je nastínit plánovaná a možná rozšíření.
+
+Co se týče stávajících funkcí, v nejbližší době je v plánu vylepšení funkcionality předplacených kurzů, rodiče čím dál více volí možnost předplacení na mnoho lekcí dopředu a je třeba umožnit pohodlnější zaznamenání těchto předplacených lekcí, spolu s tím by se rozumněji evidovaly i předplacené lekce pro jednotlivé účastníky ze skupin, což je sice v současné době také možné, ale ne úplně pohodlně proveditelné. Dále je v plánu kontrola překryvu kurzů, tedy ochrana proti tomu, aby např. nenastal konflikt dvou lekcí v jeden čas. Také se počítá s přidáním vyhledávání do aplikace, díky kterému by se mohli klienti snadněji vyhledávat, stejně jako i další entity (např. pomůcky, viz. dále).
+
+Mezi další funkce, které v budoucnu rozšíří působnost aplikace do dalších částí projektu patří například evidování zájemců o kurz, například skupinové kurzy totiž většinou vznikají tak, že se vytvoří skupina zájemců a když se uvolní blok v týdnu a hodí se klientům z této skupiny, začnou lekce -- je tedy potřeba evidovat, kteří rodiče mají zájem o které kurzy pro své děti a jim pak po domluvě umožnit vytvořit lekce. Také je v plánu vytvoření úplně nové části systému pro evidenci pomůcek a učebnic, která je také mírně specifická a mimo administraci je potřeba její část napojit také na web. Dalším důležitým bodem ve vývoji aplikace je doplnění dalších testů a vysoké pokrytí kódu.
+
+Jak jsem již zmínil v kapitole \ref{sec:zakladniPraceSReactem}, během vývoje došlo k vydání nové verze Reactu, ruku v ruce s již zmíněnými rozšířeními je v plánu analýza možností využití nového Context API v Reactu, protože existují části aplikace, kde se domnívám, že by se toto API dalo využít k vylepšení aplikace (např. snížení počtu přístupů do REST API). Stejně tak bude potřeba nadále držet krok s novějšími verzemi Reactu a přizpůsobit se tak novému životnímu cyklu komponent a případně dalším změnám.
+
+Mezi další nápady na vylepšení je zpřístupnění údajů offline, například formou automatického ukládání do Google kalendáře, tyto možnosti ale ještě bude potřeba prozkoumat a zvážit.
+
+Takto rozšířená aplikace tak ještě více urychlí a zefektivní každodenní procesy a pomůže tak lektorce získat čas pro samotné lekce a jejich přípravu a další rozvoj.
