@@ -17,6 +17,7 @@
 \usemintedstyle{xcode} % aby nebyly zvyrazneny chyby v Reactu, jehoz syntaxe neni znama
 \usepackage{xevlna}
 \usepackage{csquotes}
+\usepackage{lscape}
 
 \usepackage[style=iso-numeric]{biblatex}
 \addbibresource{sources.bib}
@@ -44,12 +45,12 @@
 \author{Lukáš Rod} %jméno autora bez akademických titulů
 \supervisor{Ing. Stanislav Kuznetsov}
 \acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
-\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má sloužit jako evidence klientů, jejich docházky, skupin, plateb za lekce a evidování celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky frameworku Django REST. Na závěr bylo úspěšně provedeno akceptační testování u zákazníka, na jehož základě byly vylepšeny zjištěné nedostatky. Aplikace poté byla nasazena na hosting a je denně zákazníkem používána.}
+\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má sloužit jako evidence klientů, jejich docházky, skupin, plateb za lekce a evidování celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky Django REST Framework. Na závěr bylo úspěšně provedeno akceptační testování u zákazníka, na jehož základě byly vylepšeny zjištěné nedostatky. Aplikace je nasazena na hosting a lektorka ji denně používá.}
 \abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{1} %volba Prohlášení (číslo 1-6)
-\keywordsCS{webová aplikace, evidence klientů, kurzy pro předškoláky}
-\keywordsEN{Nahraďte seznamem klíčových slov v angličtině oddělených čárkou.}
+\keywordsCS{webová aplikace, evidence klientů a lekcí, kurzy pro předškoláky}
+\keywordsEN{web application, client and lectures management, courses for preschoolers}
 \website{https://github.com/rodlukas/bachelors-thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
 %\setcounter{tocdepth}{3}
 \renewcommand{\listingscaption}{Ukázka kódu}
@@ -86,57 +87,76 @@
 \appendix
 
 \chapter{Seznam použitých zkratek}
-% \printglossaries
-\begin{description}
-	\item[GUI] Graphical user interface
-	\item[URL] Uniform Resource Locator
-	\item[XML] Extensible markup language
-	\item[CRUD] create-read-update-delete
-	\item[ÚP] Úspěšný prvňáček
-    \item[HTML] Hypertext Markup Language
-    \item[CSS] Cascading Style Sheets
-    \item[HTML5] Hypertext Markup Language 5
-    \item[CSS3] Cascading Style Sheets 3
-    \item[ADHD] Attention Deficit Hyperactivity Disorder
-    \item[CRM] Customer Relationship Management
-    \item[MVC] Model–view–controller
-    \item[MVP] Model–view–presenter
-    \item[MVT] Model-view-template
-    \item[DRY] Don't repeat yourself
-    \item[CBA] Component-Based Architecture
-    \item[UI] User Interface
-    \item[ORM] Object-relational mapping
-    \item[API] Application Programming Interface
-    \item[AJAX] Asynchronous JavaScript and XML
-    \item[JS] Javascript
-    \item[SSR] Server-Side Rendering
-    \item[CSR] Client-Side Rendering
-    \item[UX] User Experience
-    \item[SPA] Single-Page Application
-    \item[MPA] Multi-Page Application
-    \item[SEO] Search Engine Optimization
-    \item[HTTP] Hypertext Transfer Protocol
-    \item[JSON] JavaScript Object Notation
-    \item[SQL] Structured Query Language
-    \item[PaaS] Platform as a Service
-    \item[IaaS] Infrastructure as a Service
-
-\end{description}
+    % \printglossaries
+    \begin{description}
+    	\item[GUI] Graphical user interface
+    	\item[URL] Uniform Resource Locator
+    	\item[XML] Extensible markup language
+    	\item[CRUD] create-read-update-delete
+    	\item[ÚP] Úspěšný prvňáček
+        \item[HTML] Hypertext Markup Language
+        \item[CSS] Cascading Style Sheets
+        \item[HTML5] Hypertext Markup Language 5
+        \item[CSS3] Cascading Style Sheets 3
+        \item[ADHD] Attention Deficit Hyperactivity Disorder
+        \item[CRM] Customer Relationship Management
+        \item[MVC] Model–view–controller
+        \item[MVP] Model–view–presenter
+        \item[MVT] Model-view-template
+        \item[DRY] Don't repeat yourself
+        \item[CBA] Component-Based Architecture
+        \item[UI] User Interface
+        \item[ORM] Object-relational mapping
+        \item[API] Application Programming Interface
+        \item[AJAX] Asynchronous JavaScript and XML
+        \item[JS] Javascript
+        \item[SSR] Server-Side Rendering
+        \item[CSR] Client-Side Rendering
+        \item[UX] User Experience
+        \item[SPA] Single-Page Application
+        \item[MPA] Multi-Page Application
+        \item[SEO] Search Engine Optimization
+        \item[HTTP] Hypertext Transfer Protocol
+        \item[JSON] JavaScript Object Notation
+        \item[SQL] Structured Query Language
+        \item[PaaS] Platform as a Service
+        \item[IaaS] Infrastructure as a Service
+    
+    \end{description}
 
 
 \chapter{Obsah přiloženého CD}
 
-\begin{figure}
-	\dirtree{%
-		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
-		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
-		.1 src.
-		.2 impl\DTcomment{zdrojové kódy implementace}.
-		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
-		.1 text\DTcomment{text práce}.
-		.2 thesis.pdf\DTcomment{text práce ve formátu PDF}.
-		.2 thesis.ps\DTcomment{text práce ve formátu PS}.
-	}
-\end{figure}
+    \begin{figure}
+    	\dirtree{%
+    		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
+    		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
+    		.1 src.
+    		.2 impl\DTcomment{zdrojové kódy implementace}.
+    		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
+    		.1 text\DTcomment{text práce}.
+    		.2 thesis.pdf\DTcomment{text práce ve formátu PDF}.
+    		.2 thesis.ps\DTcomment{text práce ve formátu PS}.
+    	}
+    \end{figure}
 
+\chapter{Snímky aplikace}
+
+    \begin{figure}\centering
+    	\includegraphics[width=1\textwidth]{img/screen-den.png}
+    	\caption{Snímek obrazovky s denním přehledem}\label{fig:screen-den}
+    \end{figure}
+    
+    \begin{figure}\centering
+    	\includegraphics[width=1\textwidth]{img/screen-karta.png}
+    	\caption{Snímek obrazovky s kartou klienta}\label{fig:screen-karta}
+    \end{figure}
+    
+    \begin{landscape}
+        \begin{figure}\centering
+        	\includegraphics[totalheight=0.8\textheight]{img/screen-tyden.png}
+        	\caption{Snímek obrazovky s týdenním přehledem}\label{fig:screen-tyden}
+        \end{figure}
+    \end{landscape}
+    
 \end{document}

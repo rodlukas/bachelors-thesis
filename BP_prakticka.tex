@@ -528,7 +528,9 @@ script:
         
         
 \chapter{Nasazení}\label{nasazeni}
-    V této části popíši, jak probíhá nasazení aplikace na Heroku, a které kroky k tomu bylo potřeba udělat. Naváži tak na předchozí kapitolu o testování \ref{testovani}, kde je popsán proces testování na integračním serveru, protože Travis CI kromě samotné průběžné integrace v této práci obstará i průběžné dodávání. Způsoby nasazení čerpají z dokumentací jednotlivých knihoven, jež jsou příslušně ocitovány v daných větách, dále vycházím z dokumentace od Heroku pro webové aplikace Python \cite{heroku-python} a Django tutoriálu v dokumentaci Mozilla Developer Center \cite{mdn-django}.
+    V této části popíši, jak probíhá nasazení aplikace na Heroku, a které kroky k tomu bylo potřeba udělat. Naváži tak na předchozí kapitolu o testování \ref{testovani}, kde je popsán proces testování na integračním serveru, protože Travis CI kromě samotné průběžné integrace v této práci obstará i průběžné dodávání. Na závěr kapitoly vložím několik ukázek aktuální podoby nasazené aplikace.
+    
+    Způsoby nasazení čerpají z dokumentací jednotlivých knihoven, jež jsou příslušně ocitovány v daných větách, dále vycházím z dokumentace od Heroku pro webové aplikace Python \cite{heroku-python} a Django tutoriálu v dokumentaci Mozilla Developer Center \cite{mdn-django}.
     
     Jak již bylo zmíněno při volbě technologií v kapitole \ref{reseni}, pro nasazení bylo zvoleno Heroku, o kterém jsem více psal v kapitole \ref{heroku}. Heroku poskytuje připravené řešení infrastruktury přímo pro tuto aplikaci a je možné jej používat zdarma, případně za menší poplatek, pokud bude potřeba se zbavit některých omezení. Aplikace na Heroku běží v tzv. dyno kontejnerech, což jsou izolované virtuální linuxové kontejnery, které pro aplikaci poskytnou potřebné prostředí pro běh. Aplikaci, kontejner a doplňky (jako např. databázi PostgreSQL) lze ovládat buď přes základní webové rozhraní a nebo přes Heroku terminál
     
@@ -575,6 +577,13 @@ web: gunicorn up.wsgi --log-file -
     \end{listing}
     
     Díky možnosti Heroku propojit s Travisem \cite{travis-heroku} tedy mám možnost zprovoznit i průběžné nasazení v případě, že na integračním serveru nenastane žádný problém a vše se s úspěchem otestuje a vytvoří se úspěšně nový build. Po splnění všech předešlých kroků a konfiguraci Travisu, jejíž část je vidět v ukázce \ref{travis2} (pro vytvoření této části bylo potřeba nainstalovat Travis terminál a využít zde příkazy pro zašifrování Heroku tokenu), se tedy začne vytvářet build na Heroku a pokud vše proběhne bez problémů, provedou se příkazy podle souboru \verb|Procfile| a aplikace je nasazena. Celý tento proces mám díky konfiguraci Travisu možnost sledovat v jeho logu. Pokud se jedná o první nasazení a v databázi ještě nejsou data, je třeba vytvořit účet pro uživatele, který bude použit pro přihlášení do aplikace, k tomu využijeme, stejně jako v případě lokálního vývoje, příkaz \verb|manage.py createsuperuser|, který zadám do Heroku terminálu, ještě jej ale doplním o název aplikace, interpretr Pythonu a produkční nastavení.
+    
+    \section{Ukázka aplikace}
+    V této sekci krátce popíši a ukáži na obrázcích aktuální podobu nasazení aplikace. V ukázkách jsou samozřejmě začerněny osobní údaje klientů.
+    
+    V příloze na obrázku \ref{fig:screen-karta} je vidět podoba karty klienta, který docházel na Kurz Slabika a také dochází na kurz Feuersteinova metoda. Kromě údajů klienta je zde vidět několik barev lekcí, žluté značí budoucí lekce, červené s přeškrtnutý datumem zrušené lekce ze strany lektorky, bílé jsou běžné lekce bez dalších příznaků.
+    
+    V příloze na obrázku \ref{fig:screen-den} je ukázka přehledu pro aktuální den, toto je hlavní stránka aplikace, která se zobrazí po přihlášení. Lektorka zde vidí veškeré informace k lekcím na aktuální den a jednoduše může jedním kliknutím změnit stav účasti klientů či platbu, případně otevřít kartu klienta nebo skupiny. Bíle jsou individuální lekce, šedou barvou jsou zvýrazněny skupinové lekce. Naprosto stejné prostředí nabízí týdenní přehled v příloze na obrázku \ref{fig:screen-tyden} (je to dáno znovupoužitím stejné React komponenty), zde vidíme kromě již zmíněných prvků v denním přehledu modře zvýrazněný aktuální den v záhlaví příslušného dne, díky navigaci v horní části stránky lze bez znovunačítání stránky přecházet mezi jednotlivými týdny a vracet se jedním kliknutím na aktuální týden (tlačítko \enquote{Dnes}).
     
 
 \chapter{Další možná rozšíření}\label{dalsirozsireni}
