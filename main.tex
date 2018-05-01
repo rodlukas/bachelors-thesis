@@ -30,8 +30,8 @@
 % \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
 % \makeglossaries
 
-\newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
-\newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
+% \newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
+% \newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % ODTUD DAL VSE ZMENTE
@@ -45,7 +45,7 @@
 \author{Lukáš Rod} %jméno autora bez akademických titulů
 \supervisor{Ing. Stanislav Kuznetsov}
 \acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
-\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má sloužit jako evidence klientů, jejich docházky, skupin, plateb za lekce a evidování celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky Django REST Framework. Na závěr bylo úspěšně provedeno akceptační testování u zákazníka, na jehož základě byly vylepšeny zjištěné nedostatky. Aplikace je nasazena na hosting a lektorka ji denně používá.}
+\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má sloužit jako evidence klientů, jejich docházky, skupin, plateb za lekce a evidování celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky Django REST Framework. Na závěr bylo úspěšně provedeno akceptační testování, na jehož základě proběhlo vylepšení zjištěných nedostatků. Aplikace je nasazena na hosting a lektorka ji denně používá.}
 \abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{1} %volba Prohlášení (číslo 1-6)
@@ -83,7 +83,6 @@
 
 
 \printbibliography
-
 \appendix
 
 \chapter{Seznam použitých zkratek}
@@ -121,12 +120,10 @@
         \item[SQL] Structured Query Language
         \item[PaaS] Platform as a Service
         \item[IaaS] Infrastructure as a Service
-    
     \end{description}
 
 
 \chapter{Obsah přiloženého CD}
-
     \begin{figure}
     	\dirtree{%
     		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
@@ -141,7 +138,6 @@
     \end{figure}
 
 \chapter{Snímky aplikace}
-
     \begin{figure}\centering
     	\includegraphics[width=1\textwidth]{img/screen-den.png}
     	\caption{Snímek obrazovky s denním přehledem}\label{fig:screen-den}

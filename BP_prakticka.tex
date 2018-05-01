@@ -240,8 +240,10 @@ re_path(r'^', TemplateView.as_view(template_name="index.html"))
 <html lang="cs">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width"/>
-    <title>UPadmin</title>
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1,
+                                   shrink-to-fit=no">
+    <title>ÚPadmin</title>
 </head>
 <body>
 <div id="root">
@@ -595,6 +597,6 @@ Mezi další funkce, které v budoucnu rozšíří působnost aplikace do dalš�
 
 Jak jsem již zmínil v kapitole \ref{sec:zakladniPraceSReactem}, během vývoje došlo k vydání nové verze Reactu, ruku v ruce s již zmíněnými rozšířeními je v plánu analýza možností využití nového Context API v Reactu, protože existují části aplikace, kde se domnívám, že by se toto API dalo využít k vylepšení aplikace (např. snížení počtu přístupů do REST API). Stejně tak bude potřeba nadále držet krok s novějšími verzemi Reactu a přizpůsobit se tak novému životnímu cyklu komponent a případně dalším změnám.
 
-Mezi další nápady na vylepšení je zpřístupnění údajů offline, například formou automatického ukládání do Google kalendáře, tyto možnosti ale ještě bude potřeba prozkoumat a zvážit.
+Mezi další nápady na vylepšení je zpřístupnění údajů offline, bude tedy potřeba prozkoumat možnosti řešení jako např. automatické ukládání do Google kalendáře, progresivní webové aplikace apod. a s tím související další oblasti jako SSR (viz. kapitola \ref{sec:ssrCsr}).
 
-Takto rozšířená aplikace tak ještě více urychlí a zefektivní každodenní procesy a pomůže tak lektorce získat čas pro samotné lekce a jejich přípravu a další rozvoj.
+Takto rozšířená aplikace tak ještě více urychlí a zefektivní každodenní práci a pomůže tak lektorce získat čas pro samotné lekce a jejich přípravu a další rozvoj.
