@@ -8,21 +8,17 @@
 
 \documentclass[thesis=B,czech]{FITthesis}[2012/06/26]
 
-% \usepackage[utf8]{inputenc} LaTeX source encoded as UTF-8
 \usepackage{graphicx} %graphics files inclusion
-% \usepackage{amsmath} %advanced maths
-% \usepackage{amssymb} %additional math symbols
 \usepackage{dirtree} %directory tree visualisation
 \usepackage{minted}
 \usemintedstyle{xcode} % aby nebyly zvyrazneny chyby v Reactu, jehoz syntaxe neni znama
 \usepackage{xevlna}
 \usepackage{csquotes}
 \usepackage{lscape}
-
+\usepackage{bookmark} % pro moznost ukonceni part
 \usepackage[style=iso-numeric]{biblatex}
 \addbibresource{sources.bib}
-% aby se spravne lamaly adresy v bibliografii:
-\setcounter{biburllcpenalty}{7000}
+\setcounter{biburllcpenalty}{7000} % aby se spravne lamaly adresy v bibliografii:
 \setcounter{biburlucpenalty}{8000}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -48,98 +44,97 @@
 
 
 \begin{document}
-
-\listoflistings
-
-\begin{introduction}
-	\input{BP_uvod}
-\end{introduction}
-
-\chapter{Cíle práce}
-    \input{BP_cile}
-
-\part{Teoretická část}
-    \input{BP_teoreticka}
+    \listoflistings
     
-\part{Praktická část}
-    \input{BP_prakticka}
-
-\begin{conclusion}
-	\input{BP_zaver}
-\end{conclusion}
-
-
-\printbibliography
-\appendix
-
-\chapter{Seznam použitých zkratek}
-    % \printglossaries
-    \begin{description}
-        \item[ADHD] Attention Deficit Hyperactivity Disorder
-        \item[API] Application Programming Interface
-        \item[AJAX] Asynchronous JavaScript and XML
-        \item[CBA] Component-Based Architecture
-        \item[CRM] Customer Relationship Management
-    	\item[CRUD] create-read-update-delete
-        \item[CSR] Client-Side Rendering
-        \item[CSS] Cascading Style Sheets
-        \item[DRF] Django REST Framework
-        \item[DRY] Don't repeat yourself
-        \item[GUI] Graphical user interface
-        \item[HTML] Hypertext Markup Language
-        \item[HTTP] Hypertext Transfer Protocol
-        \item[IaaS] Infrastructure as a Service
-        \item[JS] Javascript
-        \item[JSON] JavaScript Object Notation
-        \item[MVC] Model–view–controller
-        \item[MVP] Model–view–presenter
-        \item[MVT] Model-view-template
-        \item[MVW] Model-view-whatever
-        \item[MPA] Multi-Page Application
-        \item[ORM] Object-relational mapping
-        \item[PaaS] Platform as a Service
-        \item[SEO] Search Engine Optimization
-        \item[SPA] Single-Page Application
-        \item[SQL] Structured Query Language
-        \item[SSR] Server-Side Rendering
-        \item[UI] User Interface
-    	\item[URL] Uniform Resource Locator
-    	\item[ÚP] Úspěšný prvňáček
-        \item[UX] User Experience
-    	\item[XML] Extensible markup language
-    \end{description}
-
-
-\chapter{Obsah přiloženého CD}
-    \begin{figure}
-    	\dirtree{%
-    		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
-    		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
-    		.1 src.
-    		.2 impl\DTcomment{zdrojové kódy implementace}.
-    		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
-    		.1 text\DTcomment{text práce}.
-    		.2 thesis.pdf\DTcomment{text práce ve formátu PDF}.
-    		.2 thesis.ps\DTcomment{text práce ve formátu PS}.
-    	}
-    \end{figure}
-
-\chapter{Snímky aplikace}
-    \begin{figure}\centering
-    	\includegraphics[width=1\textwidth]{img/screen-den.png}
-    	\caption{Snímek obrazovky s denním přehledem}\label{fig:screen-den}
-    \end{figure}
+    \begin{introduction}
+    	\input{BP_uvod}
+    \end{introduction}
     
-    \begin{figure}\centering
-    	\includegraphics[width=1\textwidth]{img/screen-karta.png}
-    	\caption{Snímek obrazovky s kartou klienta}\label{fig:screen-karta}
-    \end{figure}
+    \chapter{Cíle práce}
+        \input{BP_cile}
     
-    \begin{landscape}
-        \begin{figure}\centering
-        	\includegraphics[totalheight=0.8\textheight]{img/screen-tyden.png}
-        	\caption{Snímek obrazovky s týdenním přehledem}\label{fig:screen-tyden}
+    \part{Teoretická část}
+        \input{BP_teoreticka}
+        
+    \part{Praktická část}
+        \input{BP_prakticka}
+        
+    \bookmarksetup{startatroot}% aby nasledujici kapitoly nespadaly do part (prakticke casti)
+    \addtocontents{toc}{\bigskip}
+    
+    \begin{conclusion}
+    	\input{BP_zaver}
+    \end{conclusion}
+    
+    \printbibliography
+    \appendix
+    
+    \chapter{Seznam použitých zkratek}
+        % \printglossaries
+        \begin{description}
+            \item[ADHD] Attention Deficit Hyperactivity Disorder
+            \item[API] Application Programming Interface
+            \item[AJAX] Asynchronous JavaScript and XML
+            \item[CBA] Component-Based Architecture
+            \item[CRM] Customer Relationship Management
+        	\item[CRUD] create-read-update-delete
+            \item[CSR] Client-Side Rendering
+            \item[CSS] Cascading Style Sheets
+            \item[DRF] Django REST Framework
+            \item[DRY] Don't repeat yourself
+            \item[GUI] Graphical user interface
+            \item[HTML] Hypertext Markup Language
+            \item[HTTP] Hypertext Transfer Protocol
+            \item[IaaS] Infrastructure as a Service
+            \item[JS] Javascript
+            \item[JSON] JavaScript Object Notation
+            \item[MVC] Model–view–controller
+            \item[MVP] Model–view–presenter
+            \item[MVT] Model-view-template
+            \item[MVW] Model-view-whatever
+            \item[MPA] Multi-Page Application
+            \item[ORM] Object-relational mapping
+            \item[PaaS] Platform as a Service
+            \item[SEO] Search Engine Optimization
+            \item[SPA] Single-Page Application
+            \item[SQL] Structured Query Language
+            \item[SSR] Server-Side Rendering
+            \item[UI] User Interface
+        	\item[URL] Uniform Resource Locator
+        	\item[ÚP] Úspěšný prvňáček
+            \item[UX] User Experience
+        	\item[XML] Extensible markup language
+        \end{description}
+    
+    \chapter{Obsah přiloženého CD}
+        \begin{figure}
+        	\dirtree{%
+        		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
+        		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
+        		.1 src.
+        		.2 impl\DTcomment{zdrojové kódy implementace}.
+        		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
+        		.1 text\DTcomment{text práce}.
+        		.2 thesis.pdf\DTcomment{text práce ve formátu PDF}.
+        		.2 thesis.ps\DTcomment{text práce ve formátu PS}.
+        	}
         \end{figure}
-    \end{landscape}
     
+    \chapter{Snímky aplikace}
+        \begin{figure}\centering
+        	\includegraphics[width=1\textwidth]{img/screen-den.png}
+        	\caption{Snímek obrazovky s denním přehledem}\label{fig:screen-den}
+        \end{figure}
+        
+        \begin{figure}\centering
+        	\includegraphics[width=1\textwidth]{img/screen-karta.png}
+        	\caption{Snímek obrazovky s kartou klienta}\label{fig:screen-karta}
+        \end{figure}
+        
+        \begin{landscape}
+            \begin{figure}\centering
+            	\includegraphics[totalheight=0.8\textheight]{img/screen-tyden.png}
+            	\caption{Snímek obrazovky s týdenním přehledem}\label{fig:screen-tyden}
+            \end{figure}
+        \end{landscape}
 \end{document}
