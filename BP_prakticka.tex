@@ -1,65 +1,75 @@
 \chapter{Analýza}
-Cílem této kapitoly je analyzovat entity, procesy a fungování projektu a sestavit požadavky na výslednou aplikaci. Na základě toho pak může být započat návrh aplikace.
+Cílem této kapitoly je analyzovat entity, procesy a fungování projektu a sestavit postupně sestavit funkční a nefunkční požadavky na výslednou aplikaci. Na základě toho pak může být započat návrh jednotlivých částí aplikace.
     
     \section{Procesy a entity}
-    Cílem této části je popsat, jak projekt funguje a zmapovat jednotlivé entity a popsat procesy. Na základě těchto zjištění pak bude proveden v další kapitole návrh logického datového modelu, komunikačního rozhraní ad. Vzhledem k tomu, že se v projektu pohybuje jediný člověk, lektorka, a tato aplikace slouží jako podpůrný prvek procesů v projektu (tedy např. neřeší objednání klienta, to proběhne např. telefonicky, osobně, e-mailem, pouze zaznamenává potřebná data a umožňuje s nimi pracovat a zobrazovat tak, aby zefektivnila jednotlivé procesy), je upuštěno od modelování procesů ve prospěch podrobného textového popisu, na základě kterého bude moci být návrh této aplikace podporující efektivitu a jednoduchou správu přesněji vytvořen.
-        \subsection*{Kurzy}
-        ÚP nabízí v současné době 6 kurzů, plánují se ale i další, stejně tak některé mohou být ukončeny. Každý kurz má svůj název. Kurzy jsou individuální a skupinové, neexistuje ale žádná přímá souvislost mezi kurzem a způsobem jeho výuky, protože se vše přizpůsobuje na míru klientovi, tedy některý kurz může sice být obvykle vyučován skupinově, ale někdy také individuálně. Kurzy mají variabilní délku, většinou od měsíce až po celoroční. Všechny kurzy jsou placené a většinou je na rodičích, zda zaplatí celý kurz, platí měsíčně, každou lekci a nebo úplně individuálně (platí se v hotovosti nebo převodem). Kurzy se konají ve všední dny, v současné době 3x týdně od odpoledne až do večera. Na kurz se klient objednává telefonicky, e-mailem, zprávou nebo osobně.
-        \subsection*{Klienti}
-        Každého, kdo dochází na nějaký kurz, je nazýván klientem. Klient, jak již bylo zmíněno v předchozím odstavci, navštěvuje kurzy. Buď je navštěvuje sám za sebe, tedy individuálně, nebo je součástí nějaké skupiny (viz. další odstavec). U klienta se eviduje jméno a příjmení, e-mailový a telefonní kontakt na rodiče a případně další poznámky, vzhledem k tomu, že v současné době byla evidence používána v podobě uvedené v kapitole \ref{aktualni-reseni}, často některé kontaktní údaje schází a je třeba s tím počítat.
-        \subsection*{Skupiny}
-        Zejména v poslední době se v projektu zvyšuje počet skupinových lekcí. Skupinu tvoří většinou 2 až 4 klienti, kteří v rámci této skupiny dochází na příslušný kurz. Lektorka si pro skupiny vytváří jejich jméno (které vychází z názvu kurzu a pořadového čísla skupiny v tomto kurzu), aby se v nich mohla orientovat. Je potřeba poznamenat, že klient může skupinu opustit a stejně tak se k nějaké stávající připojit, to samozřejmě znamená, že další lekce už budou pouze s těmi, kteří jsou stále ve skupině a nebo jsou čerstvě příchozí. Pokud klient skupinu opustí, je ale stále potřeba evidovat jeho předchozí docházku (pro případ, že se znovu přihlásí, nebo dokonce chodí individuálně a je potřeba vědět, že už odchodil část skupinově). Klienti často ze skupiny odchází buď z časových důvodů, tedy jejich docházka dočasně nebo trvale končí, druhým důvodem je, že přejdou do individuálního kurzu (např. kvůli pomalejšímu tempu).
-        \subsection*{Lekce}
-        Každý kurz se skládá z jednotlivých lekcí. Lekce jsou termíny, které každý klient dostane a dochází na ně. Jak bylo uvedeno v části o kurzech, za lekce se platí, většinou je ale na klientovi, jaký způsob placení zvolí. Pokud se jedná o skupinu, většinou každý platí jiným způsobem a v jiné termíny. Vzhledem k různorodosti způsobů placení jsou rodiče většinou rádi, že si nemusí nic pamatovat, dochází na kurz a poprosí lektorku, aby je upozornila, že si mají přinést příště peníze, někteří pak kurzy raději platí rovnou celé. Někdy se stane, že klient na kurz nedorazí, pro účely historie docházky a platby je potřeba rozeznat, zda se omluvil nebo nepřišel bez omluvy. Výjimečně se také může stát, že je termín zrušený ze strany lektorky z osobních důvodů. Kromě této docházky se samozřejmě musí evidovat u klientů, zda mají lekci zaplacenou a případně další poznámky. Vzhledem k tomu, že stále častěji rodiče volí předplácení, je tedy potřeba evidovat jak naplánované lekce, tak nenaplánované (tedy ty, co jsou zaplacené, ale nemají ještě přidělený a domluvený termín).
+    V této sekci popíši fungování projektu, které rozdělím do několika částí, resp. entit. Vzhledem k tomu, že se v projektu pohybuje jediný člověk, lektorka, a tato aplikace slouží jako podpůrný prvek procesů v projektu (tedy např. neřeší objednání klienta, to proběhne např. telefonicky, osobně, e-mailem, pouze zaznamenává potřebná data a umožňuje s nimi pracovat a zobrazovat tak, aby zefektivnila jednotlivé procesy), je upuštěno od modelování procesů ve prospěch podrobného textového popisu, na základě kterého bude vytvořen co nejpřesnější návrh této aplikace.
+    
+        \subsection{Kurzy}\label{subsec:kurzy}
+        ÚP nabízí v současné době 6 kurzů, plánují se ale i další, stejně tak ale některé mohou být ukončeny. Každý kurz má svůj název. Jsou individuální a skupinové, neexistuje ale žádná přímá souvislost mezi kurzem a způsobem jeho výuky, protože se vše přizpůsobuje na míru klientovi, tedy některý kurz může sice být obvykle vyučován skupinově, ale někdy také individuálně. Mají variabilní délku, většinou od 1 měsíce až po celoroční. Všechny kurzy jsou placené a většinou je na rodičích, zda zaplatí celý kurz, platí měsíčně, každou lekci a nebo úplně individuálně (platí se v hotovosti nebo převodem). Konají se ve všední dny, v současné době 3x týdně od odpoledne až do večera. Na kurz se klient objednává telefonicky, e-mailem, zprávou nebo osobně.
+        
+        \subsection{Klienti}\label{subsec:klienti}
+        Účastník kurzu se nazývá klient. Kurzy navštěvuje buď sám za sebe, tedy individuálně, nebo je součástí nějaké skupiny (viz. následující podsekce \ref{subsec:skupiny}). U klienta je potřeba evidovat jméno a příjmení, e-mailový a telefonní kontakt na rodiče a případně další poznámky, vzhledem k tomu, že v současné době byla evidence používána v podobě uvedené v sekci \ref{aktualni-reseni}, často některé kontaktní údaje schází a je třeba s tím počítat.
+        
+        \subsection{Skupiny}\label{subsec:skupiny}
+        Zejména v poslední době se v projektu zvyšuje počet skupinových lekcí. Skupinu tvoří většinou 2 až 4 klienti, kteří v rámci této skupiny dochází na příslušný kurz. Lektorka si pro skupiny vytváří jejich jméno (které vychází z názvu kurzu a pořadového čísla skupiny v tomto kurzu), aby se v nich mohla orientovat. Je potřeba poznamenat, že klient může skupinu opustit a stejně tak se k nějaké stávající připojit, to samozřejmě znamená, že další lekce už budou pouze s těmi, kteří jsou stále ve skupině (včetně nově příchozích). K opuštění skupiny obvykle odchází buď z časových důvodů (tedy docházka dočasně nebo trvale končí), nebo kvůli přechodu na individuální formu téhož kurzu (např. kvůli pomalejšímu tempu). I po opuštění skupiny je stále potřeba evidovat předchozí docházku klienta (pro případ, že se znovu přihlásí, nebo přešel na individuální formu téhož kurzu a je potřeba vidět, že část odchodil skupinově). 
+        
+        \subsection{Lekce}
+        Každý kurz se skládá z jednotlivých lekcí. Lekce jsou termíny, které každý klient dostane a dochází na ně. Jak bylo uvedeno v podsekci o kurzech \ref{subsec:kurzy}, za lekce se platí, většinou je ale na klientovi, jaký způsob placení zvolí. Pokud se jedná o skupinu, většinou každý platí jiným způsobem a v jiné termíny. Vzhledem k různorodosti způsobů placení jsou rodiče většinou rádi, že si nemusí nic pamatovat, dochází na kurz a poprosí lektorku, aby je upozornila, že si mají přinést příště peníze, někteří pak kurzy raději platí rovnou celé. Někdy se stane, že klient na kurz nedorazí, pro účely historie docházky a platby je potřeba rozeznat, zda se omluvil nebo nepřišel bez omluvy. Výjimečně se také může stát, že je termín zrušený ze strany lektorky z osobních důvodů. Kromě této docházky se samozřejmě musí evidovat u klientů, zda mají lekci zaplacenou a případně další poznámky. Vzhledem k tomu, že stále častěji rodiče volí předplácení, je tedy potřeba evidovat jak naplánované lekce, tak nenaplánované (tedy ty, co jsou zaplacené, ale nemají ještě přidělený a domluvený termín).
     
     \section{Požadavky}
-    V této části shrnu funkční a nefunkční požadavky na výslednou aplikaci. Všechny požadavky nebyly známé hned na počátku, některé z nich vznikly díky inkrementálnímu přístupu k analýze, návrhu a implementaci. Při návrhu aplikace jsem např. zjistil, že by se lektorce hodil také týdenní pohled na lekce, dále např. přibylo zobrazení čísla lekce ad. Součástí zadání této práce je požadavek, že se má jednat o webovou aplikaci. Tento požadavek tedy neuvádím v přehledu požadavků níže a beru jej jako výchozí.
+    V této sekci shrnu funkční a nefunkční požadavky na výslednou aplikaci. Všechny požadavky nebyly známé hned na počátku, některé z nich vznikly díky inkrementálnímu přístupu k analýze, návrhu a implementaci. Při návrhu aplikace jsem například zjistil, že by se lektorce hodil také týdenní pohled na lekce (jako má v diáři), dále přibylo zobrazení čísla lekce ad. Součástí zadání této práce je požadavek, že se má jednat o webovou aplikaci. Tento požadavek tedy neuvádím v přehledu požadavků níže a beru jej jako výchozí.
     
     \subsection{Funkční požadavky}
     \begin{itemize}
-        \item \textbf{evidence klientů:} systém umožní CRUD operace s klienty, u klienta je třeba zaznamenat jméno a příjmení dítěte a telefonní a emailový kontakt na rodiče a poznámku pro další informace,
-        \item \textbf{evidence lekcí klientů:} systém umožní evidovat, na které kurzy klient chodí (nebo chodil), a to jak individuální, tak skupinové,
-        \item \textbf{evidence docházky klientů na kurzy:} u každého klienta je potřeba evidovat jednotlivé lekce kurzů, součástí těchto evidovaných dat bude datum a čas, stav účasti (omluven, neomluven, odvolán ze strany lektorky), zda je zaplaceno, další poznámku (např. pro připomenutí, že má příště přinést zapůjčenou knížku),
+        \item \textbf{evidence klientů:} systém umožní CRUD operace s klienty, u klienta je třeba zaznamenat jméno a příjmení dítěte, telefonní a e-mailový kontakt na rodiče a poznámku pro další informace,
+        \item \textbf{evidence lekcí klientů:} systém umožní evidovat, na které kurzy klient chodí (nebo chodil), a to jak individuální, tak skupinové, bude možné všechny tyto informace zobrazit na jednom místě,
+        \item \textbf{evidence údajů o lekci:} součástí evidovaných dat pro každou lekci bude datum a čas, stav účasti (omluven, neomluven, odvolán ze strany lektorky), zda je zaplaceno a další poznámka (například informace, že klientovi byla zapůjčena knížka),
         \item \textbf{evidence předplacených lekcí:} aplikace umožní evidovat předplacené lekce klientů,
-        \item \textbf{přehled pro aktuální den:} na hlavní stránce po přihlášení je potřeba zobrazit seznam klientů, kteří mají v aktuální den dorazit, spolu s dalšími informacemi (zda mají zaplatit, případně další notifikace týkající se správy klientů),
+        \item \textbf{přehled pro aktuální den:} na hlavní stránce po přihlášení je potřeba zobrazit plán pro aktuální den -- klienty spolu s dalšími informacemi o lekci (stav účasti, platba, kurz, datum, čas, číslo lekce, zda mají příště platit a další poznámky), v případě zrušené lekce ze strany lektorky se lekce v denním přehledu nemá zobrazit (zobrazí se pouze v kartě klienta a v týdenním přehledu)
         \item \textbf{další upozornění:} u lekcí, které jsou jako poslední zaplacené je potřeba upozornit klienta, že příště musí platit, tedy je třeba toto upozornění lektorce připomenout u příslušné lekce,
-        \item \textbf{počítání lekcí:} u lekcí je potřeba zobrazit, kolikátá je to lekce v rámci kurzu, na kterou klient dorazil,
+        \item \textbf{počítání lekcí:} u lekcí je potřeba zobrazit, o kolikátou (navštívenou, tedy nepočítají se omluvené) lekci v rámci kurzu se jedná,
         \item \textbf{týdenní přehled:} aplikace umožní zobrazit lekce v týdenním přehledu (pouze pracovní dny) a umožní mezi týdny přecházet jako v diáři.
     \end{itemize}
     
     \subsection{Nefunkční požadavky}
     \begin{itemize}
-        \item \textbf{podporované prohlížeče:} aplikace bude plně funkční a kompatibilní s posledními verzemi běžně používaných prohlížečů, tedy Mozilla Firefox, Google Chrome, Microsoft Edge, Apple Safari,
-        \item \textbf{podporovaná zařízení:} aplikaci bude přizpůsobená zejména pro používání na notebooku (kde bude používána primárně, jedná se o rozlišení 1920x1080, 15.6“), bude ji ale možno bez omezení používat i na tabletu (iPad s úhlopříčkou displeje 9,7“) a chytrém telefonu s Androidem a 5,2“ displejem,
-        \item \textbf{snadná údržba a rozvoj:} aplikace bude snadno rozšířitelná a upravitelná, je totiž plánovaný rozvoj projektu a rozšíření aplikace o další součásti (např. evidence prodejů pomůcek a učebnic ad.),
-        \item \textbf{srozumitelné a jednoduché rozhraní aplikace:} aplikace tvoří podpůrný systém pro zefektivnění a urychlení práce, musí dát možnost uživateli co nejsnadněji, nejrychleji a nejpochopitelněji provést každý úkon,
+        \item \textbf{podporované prohlížeče:} aplikace bude plně funkční a kompatibilní s posledními verzemi běžně používaných prohlížečů, tedy Mozilla Firefox, Google Chrome, Microsoft Edge, Apple Safari (primárně bude ale využívána na desktopovém Firefoxu),
+        \item \textbf{podporovaná zařízení:} aplikaci bude přizpůsobená zejména pro používání na notebooku (kde bude používána primárně, jedná se o rozlišení 1920 × 1080, 15,6“), bude ji ale možno bez omezení používat i na tabletu (iPad s iOS 11.3 a 9,7“ displejem) a chytrém telefonu (s Androidem 8.0 a 5,2“ displejem),
+        \item \textbf{připravenost na rozšíření a údržbu:} aplikace bude vytvořena tak, aby byla snadno rozšířitelná a upravitelná, je totiž plánovaný rozvoj projektu a rozšíření aplikace o další součásti (např. evidence prodejů pomůcek a učebnic ad.),
+        \item \textbf{srozumitelné a jednoduché rozhraní aplikace:} aplikace tvoří podpůrný systém pro zefektivnění a urychlení práce, musí dát možnost uživateli co nejsnadněji, nejrychleji a nejpochopitelněji provést každý úkon a rychle zjistit potřebné informace,
         \item \textbf{bezpečnost:} aplikace obsahuje osobní data klientů, je tedy třeba zajistit odpovídající úroveň zabezpečení, aby se případný útočník nemohl dostat k citlivým údajům.
     \end{itemize}
     
 \chapter{Návrh}
-V této kapitole nejprve popíši návrh logického datového modelu aplikace a případně vysvětlím, které důvody mě vedly k vytvoření modelu zrovna takovýmto způsobem. Poté navrhnu architekturu aplikace, při tom budu vycházet z už zvolených technologií v poslední kapitole \ref{reseni} z teoretické části. Také uvedu, jak probíhal návrh uživatelského rozhraní spolu s ukázkou a na závěr popíšu navržené komunikační rozhraní API pro komunikaci mezi serverem a klientem. 
+V této kapitole nejprve popíši návrh logického datového modelu aplikace a vysvětlím, které důvody mě vedly k vytvoření modelu zrovna takovýmto způsobem. Poté bude následovat návrh architektury aplikace, při kterém vyjdu z už zvolených technologií v sekci \ref{reseni}. Krátce uvedu, jak probíhal návrh uživatelského rozhraní spolu s ukázkou a na závěr popíši navržené komunikační rozhraní API pro komunikaci mezi serverem a klientem. 
 
     \section{Datový model}\label{datovymodel}
-    Pro modelování databáze jsem využil logický datový model, který umožní platformní nezávislost, je na obrázku \ref{fig:db-model}. Tento model pak může být jednoduše převeden na platformě závislý, resp. také vygenerování SQL pro vytvoření dané databáze (vzhledem k využití frameworku \textit{Django} to ale nebude nutné, a tak pro vizuální představu postačí pouze tento model). Model byl tvořen i s důrazem na budoucí rozšíření a je tedy připraven na zásahy uvedené v kapitole \ref{dalsirozsireni}.
+    Pro modelování databáze jsem využil logický datový model, který umožní platformní nezávislost, je na obrázku \ref{fig:db-model}. Tento model pak může být jednoduše převeden na platformě závislý a také na SQL skript pro vytvoření dané databáze, vzhledem k využití frameworku Django ale ani jeden převod nebude nutný (důvody uvedu v sekci \ref{sec:datovaCast}), a tak pro vizuální představu postačí pouze tento model. Model byl tvořen i s důrazem na budoucí rozšíření a je tedy připraven na zásahy uvedené v kapitole \ref{dalsirozsireni}.
+    
     \begin{figure}\centering
     	\includegraphics[width=1\textwidth]{img/db-model}
     	\caption[Logický datový model]{Logický datový model}\label{fig:db-model}
     \end{figure}
     
-        \subsection*{Client}
-        Entita klienta slouží k evidenci informací o klientovi, vyžadováno je jméno a příjmení, nepovinně telefonní a e-mailový kontakt na rodiče a poznámka. Kontakty jsou nepovinně zejména kvůli tomu, že doteď nebyly evidovány na jednom místě a někdy dokonce vůbec a bude potřeba již stávající klienty do evidence samozřejmě přidat.
-        \subsection*{Membership}
-        Členství slouží ke dvěma účelům. Zaprvé k dekompozici M:N vztahu klienta a skupiny (klient může být ve více skupinách a skupiny mohou mít více klientů), vím tedy, který klient patří do které skupiny. Zadruhé pro možné budoucí využití (původní záměr byl vytvořit atributy pro začátek a konec členství, na základě další analýzy a návrhů se ukázalo, že ale zatím postačí jednodušší varianta, tedy zda je teď členem nebo není).
-        \subsection*{Group}
-        Entita skupiny slouží k evidenci jednotlivých skupin. Atribut jméno skupiny je nepovinný (ačkoliv bude obvykle používán, jeho použití není vyžadováno, protože to není nutné). Dále skupina ví, ke kterému kurzu náleží, tato vazba je zde, abychom už od počátku vytvoření lekce věděli, ke kterému kurzu skupina patří.
-        \subsection*{Course}
-        Entita kurzu drží dva atributy: jméno kurzu a viditelnost, oba jsou povinné. Viditelnost slouží k tomu, abychom mohli v systému pro nově přidávané lekce skrýt z možností kurzu příslušný kurz, pokud už není provozován (aby byla zachována předchozí evidence lekcí daného kurzu).
-        \subsection*{AttendanceState}
-        Stav účasti slouží k evidování možností stavu účasti klientů na kurzu, předpokládanými jsou např. \enquote{omluven}, \enquote{nepřišel} ad. Tato entita drží dva atributy: název stavu účasti (např. \enquote{omluven}) a viditelnost, oba jsou povinné. Viditelnost opět slouží k tomu, abychom mohli v systému pro nově přidávané lekce skrýt z možností stavu účasti klienta příslušný stav, pokud už není využívaný (aby byla zachována předchozí evidence lekcí daného kurzu). Tím, že mám jednu entitu, která říká, jaké jsou možné stavy účasti, může být aplikace konzistentní, zároveň pro úpravu názvu není potřeba upravit každý stav zvlášť, dále lze jednoduše stav účasti přidat a začít jej používat, případně jej přestat používat a skrýt z budoucích nabídek.
-        \subsection*{Attendance, Lecture}
-        Vzhledem k úzkému propojení těchto dvou entit spojuji jejich popis do jedné části. Účast a lekce jsou jádrem aplikace a vzhledem k tomu, že je k nim potřeba z různých entit přistupovat, bylo potřeba jim věnovat dostatečný čas v návrhu, aby byl kvalitní a nebylo třeba jej měnit.
+        \subsection{Client}
+        Entita klienta slouží k evidenci informací o klientovi, vyžadováno je jméno a příjmení, nepovinně telefonní a e-mailový kontakt na rodiče a poznámka. Kontakty jsou nepovinně zejména kvůli tomu, že doteď nebyly evidovány na jednom místě a někdy dokonce vůbec a bude potřeba již stávající klienty do evidence samozřejmě přidat (viz. podsekce \ref{subsec:klienti}).
         
-        Je potřeba evidovat lekce, každá má povinný atribut trvání (plánuje se funkcionalita upozornění na překryv lekcí), zda je zrušena (díky tomu lze jednoduše zrušit i skupinové lekce, oproti přístupu, kdy bychom zrušení evidovali prostřednictvím entity stavu účasti) a nepovinnou časovou značku začátku lekce (tzv. timestamp). V případě, že se jedná o naplánovanou lekci bez zatím známého konkrétního termínu, atribut obsahuje hodnotu \verb|null|. Ke každé lekci eviduji k ní náležící právě jeden kurz a nepovinně také skupinu, pokud se nejedná o individuální kurz. Tato vazba je potřeba pro individuální lekce (skupiny jsou řešeny vazbou přímo z entity skupin), tento způsob byl shledán po vyhledávání alternativních možností tím nejvhodnějším.
+        \subsection{Membership}
+        Členství slouží ke dvěma účelům. Zaprvé k dekompozici M:N vztahu klienta a skupiny (klient může být ve více skupinách a skupiny mohou mít více klientů), vím tedy, který klient patří do které skupiny. Zadruhé pro možné budoucí využití (původní záměr byl vytvořit atributy pro začátek a konec členství, na základě další analýzy a návrhů se ukázalo, že ale zatím postačí jednodušší varianta, tedy zda je teď členem nebo není).
+        
+        \subsection{Group}
+        Entita skupiny slouží k evidenci jednotlivých skupin. Atribut jméno skupiny je nepovinný (ačkoliv bude obvykle používán, jeho použití není vyžadováno, protože to není nutné). Dále skupina ví, ke kterému kurzu náleží, tato vazba je zde proto, že skupiny už od počátku svého vytvoření patří vždy k právě jednomu kurzu (oproti klientovi, který takovou vazbu nepotřebuje).
+        
+        \subsection{Course}
+        Kurzu drží dva atributy: jméno kurzu a viditelnost, oba jsou povinné. Viditelnost slouží k tomu, aby bylo v rámci aplikace možné při přidávání lekcí či skupiny skrýt z možností kurzu příslušný kurz, pokud už není provozován (aby byla zachována předchozí evidence lekcí daného kurzu).
+        
+        \subsection{AttendanceState}
+        Stav účasti slouží k evidování možností stavu účasti klientů na kurzu, předpokládanými stavy jsou např. \enquote{omluven} a \enquote{nepřišel}. Tato entita drží dva atributy: název stavu účasti a viditelnost, oba jsou povinné. Viditelnost opět slouží k tomu, aby bylo v rámci aplikace možné pro nově přidávané lekce skrýt z možností stavu účasti klienta příslušný stav, pokud už není využívaný (aby byla zachována předchozí evidence lekcí daného kurzu). Tím, že mám jednu entitu, která říká, jaké jsou možné stavy účasti, může být aplikace konzistentní, zároveň pro úpravu názvu není potřeba upravit každý stav zvlášť, dále lze jednoduše stav účasti přidat a začít jej používat, případně jej přestat používat a skrýt z budoucích nabídek (nebo v případě žádného použití i smazat).
+        
+        \subsection{Attendance, Lecture}
+        Vzhledem k úzkému propojení těchto dvou entit spojuji jejich popis do jedné podsekce. Účast a lekce jsou jádrem aplikace a vzhledem k tomu, že je k nim potřeba z různých entit přistupovat, bylo potřeba jim věnovat dostatečný čas v návrhu, aby byl kvalitní a nebylo nutné jej v průběhu vývoje měnit.
+        
+        Je potřeba evidovat lekce, každá má povinné atributy trvání (plánuje se funkcionalita upozornění na překryv lekcí), zda je zrušena (díky tomu lze jednoduše zrušit i skupinové lekce, oproti přístupu, kdy bychom zrušení evidovali prostřednictvím entity stavu účasti) a nepovinnou časovou značku začátku lekce (tzv. timestamp). V případě, že se jedná o naplánovanou lekci bez zatím známého konkrétního termínu, atribut začátku obsahuje hodnotu \verb|null|. Ke každé lekci eviduji k ní náležící právě jeden kurz a nepovinně také skupinu, pokud se nejedná o individuální kurz. Tato vazba je potřeba pro individuální lekce (skupiny jsou řešeny vazbou přímo z entity skupin), tento způsob byl shledán po vyhledávání alternativních možností tím nejvhodnějším.
         
         Entita účasti je úmyslně oddělena od lekce, aby každý klient, kterého se lekce týká, mohl mít své údaje o účasti (což je v případě skupiny potřeba). Každá účast tedy ví, ke které jedné lekci a jednomu klientovi náleží, a také je k ní navázán právě jeden stav účasti příslušného klienta.
         
@@ -67,16 +77,16 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
         
 
     \section{Architektura}\label{architektura}
-    Na obrázku \ref{fig:deployment-diagram} je diagram nasazení. Architektura má tři části: server, klient a databázový server. Na klientovi, tedy na počítači, mobilu či tabletu běží webový prohlížeč. Na serveru běží webový server \textit{Gunicorn}, což je Python WSGI HTTP Server (WSGI znamená, že splňuje požadavky na rozhraní Web Server Gate Interface, a tedy umožňuje komunikovat Django aplikaci, která WSGI vyžaduje, s webovým serverem). PostgreSQL databáze bude na samostatném serveru.
+    Na obrázku \ref{fig:deployment-diagram} je diagram nasazení. Architektura má tři části: server, klient a databázový server. Na klientovi (počítač, telefon, tablet) běží webový prohlížeč. Na serveru běží webový server Gunicorn, což je Python WSGI HTTP Server (WSGI znamená, že splňuje požadavky na rozhraní Web Server Gate Interface, a tedy umožňuje komunikovat Django aplikaci, která WSGI vyžaduje, s webovým serverem). PostgreSQL databáze bude na samostatném serveru.
     
     \begin{figure}[ht]\centering
     	\includegraphics[width=1\textwidth]{img/deployment-diagram}
     	\caption[Diagram nasazení]{Diagram nasazení}\label{fig:deployment-diagram}
     \end{figure}
     
-    Jak již bylo řečeno v kapitole \ref{reseni}, serverová část je tedy v jazyce Python a frameworku Django a s klientskou částí v jazyce Javascript a frameworku React komunikuje přes REST API ve formátu JSON. Django je postavené na architektuře MVP (popis v kapitole \ref{mvc}) a React na architektuře CBA (popis v kapitole \ref{cba}). Je potřeba říci, že první požadavek a odpověď budou čistě v HTTP/S, tedy klient požádá o stránku, server mu ji celou vrátí, další komunikace už bude probíhat přímo přes REST API a odpovědi budou v JSON (díky tomu může být aplikace SPA, viz. \ref{spampa}). Python, a tedy i Django, umí v základu komunikovat pouze s SQLite databází, pro další databáze je třeba využít adaptér -- pro PostgreSQL se používá psycopg2. O vyřízení API požadavků je požádán \textit{Django REST Framework}, konkrétně část View, která poté prostřednictvím Serializeru využije příslušné Django Modely (tedy ORM) a získám tak data z databáze.
+    Jak již bylo řečeno v kapitole \ref{reseni}, serverová část je v jazyce Python a frameworku Django a s klientskou částí v jazyce Javascript a frameworku React komunikuje přes REST API ve formátu JSON. Django je postavené na architektuře MVT (popis v sekci \ref{mvc}) a React na architektuře CBA (popis v sekci \ref{cba}). První požadavek a odpověď budou čistě v HTTP/S, tedy klient požádá o stránku, server mu ji celou vrátí, další komunikace už bude probíhat přímo přes REST API a odpovědi budou v JSON (díky tomu může být aplikace SPA, viz. \ref{spampa}). Python, a tedy i Django, umí v základu komunikovat pouze s SQLite databází, pro další databáze je třeba využít adaptér -- pro PostgreSQL se používá psycopg2. O vyřízení API požadavků je požádán Django REST Framework, konkrétně část View, která poté prostřednictvím Serializeru využije příslušné Django Modely (tedy ORM) a z databáze tak získá data.
     
-    \section{Návrh uživatelského prostředí}
+    \section{Uživatelské prostředí}
     Návrh uživatelského prostředí je neodmyslitelnou součástí tvorby webové aplikace. Vzhledem k tomu, že byl návrh tvořen v několika iteracích, zvolil jsem pohodlnější a rychlejší kreslení na papír. Díky tomu jsme při konverzaci nad budoucí podobou aplikace s lektorkou mohli některé nápady okamžitě zahodit a vytvořit bez problémů nové.
     
     \begin{figure}[ht]\centering
@@ -84,19 +94,19 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
     	\caption[Návrh karty klienta]{Návrh karty klienta}\label{fig:ui-navrh}
     \end{figure}
     
-    Na obrázku \ref{fig:ui-navrh} je jeden z návrhů z poslední iterace překreslený z papíru do aplikace \href{https://pencil.evolus.vn/}{Pencil}, jedná se o návrh karty klienta. Na základě těchto návrhů jsme doiterovali až do stavu, že jsme přesně věděli, co od aplikace kde a jak čekat.
+    Na obrázku \ref{fig:ui-navrh} je jeden z návrhů z poslední iterace překreslený z papíru do aplikace \href{https://pencil.evolus.vn/}{Pencil}, jedná se o návrh karty klienta. Na základě těchto návrhů jsme doiterovali až do stavu, kdy jsme přesně věděli, co od aplikace kde a jak čekat.
     
     \section{Komunikační rozhraní}
-    Bylo potřeba navrhnout API tak, aby vystavilo všechny příslušné body potřebné pro práci na klientské části. Při návrhu jsem vycházel mj. z doporučení v \cite{api-bestpractises} -- pro všechny body jsou názvy v množném čísle, využívám naplno všechno dostupné HTTP metody GET, POST, PUT, PATCH a DELETE a nevystavuji zbytečně adresy obsahující prováděné akce (např. vytvoření), používám vždy množná čísla a adresa všech níže dále uvedených bodů API vždy začíná \verb|/api/v1/| (obsahuje tedy i označení verze API).
+    Bylo potřeba navrhnout API tak, aby vystavilo všechny příslušné body potřebné pro práci na klientské části. Při návrhu jsem vycházel mj. z doporučení v \cite{api-bestpractises} -- pro všechny body jsou názvy v množném čísle, využívám naplno všechno dostupné HTTP metody GET, POST, PUT, PATCH a DELETE, nevystavuji zbytečně adresy obsahující prováděné akce (např. vytvoření) a adresa všech níže dále uvedených bodů API vždy začíná \verb|/api/v1/| (obsahuje tedy i označení verze API).
     
-    Jak bylo již řečeno v předchozím odstavci, API kromě běžných operací umožňuje také PATCH požadavek, ten slouží k datově méně náročné částečné aktualizaci údajů. Tuto metodu lze použít např. pokud bude potřeba lekci označit jako zaplacenou -- není nutné přenášet další údaje, pokud je měněn jen jeden, stačí poskytnout id a upravovaný údaj. Často jsou GET požadavky vraceny z důvodu snížení počtu požadavků na server rovnou se zanořenými daty (které jsou stejně vždy potřeba).
+    Jak bylo již řečeno v předchozím odstavci, API kromě běžných operací umožňuje také PATCH požadavek, ten slouží k datově méně náročné částečné aktualizaci údajů. Tuto metodu lze použít například v případě označení lekce jako zaplacené -- v tomto případě není nutné přenášet další údaje, stačí \verb|id| a upravovaný údaj. GET požadavky často, z důvodu snížení počtu požadavků na server, rovnou obsahují zanořená data (která jsou stejně vždy potřeba).
     
     \newcommand{\apiA}{0.33}
     \newcommand{\apiB}{0.14}
     \newcommand{\apiC}{0.43}
     
         \subsection{Klienti}
-        Rozhraní pro klienty pracuje s klíči \verb|id|, \verb|name|, \verb|surname|, \verb|phone|, \verb|email| a \verb|note|.
+        Bod pro klienty pracuje s klíči \verb|id|, \verb|name|, \verb|surname|, \verb|phone|, \verb|email| a \verb|note|.
         Pro GET požadavky jsou klienti seřazeni vždy podle abecedy vzestupně, a to podle příjmení a poté jména.
         
             {\centering
@@ -110,7 +120,7 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
             \end{tabular}}
             
         \subsection{Lekce}
-        Rozhraní pro lekce pracuje s klíči \verb|id|, \verb|start|, \verb|canceled| a \verb|duration|, to ale není vše. V případě lekce jsou obsaženy také zanořené informace o lekci. Součástí odpovědi jsou i zanořené informace o kurzu (klíč \verb|course|) a jednotlivé účasti každého z klientů (klíč \verb|attendances|), které navíc obsahují vnořené informace o každém z klientů (klíč \verb|client|), stavu účasti (klíč \verb|attendancestate|) a také vypočítané informace o číslu lekce v pořadí (klíč \verb|count|) a zda je potřeba připomenout příští platbu (klíč \verb|remind_pay|). Vypočítané informace jsou pouze v odpovědích a při požadavcích na úpravu či vytvoření se neuvádějí, dále zanořené informace kromě samotných účastí se zadávají pouze formou \verb|klíč_id| (tedy např. \verb|attendancestate_id|). Kromě dotazu s uvedeným přesným datumem se vrací i zrušené lekce.
+        Bod pro lekce pracuje v základu s klíči \verb|id|, \verb|start|, \verb|group|, \verb|canceled| a \verb|duration|. V případě skupinové lekce klíč \verb|group| obsahuje zanořené informace o skupině. Součástí odpovědi jsou i zanořené informace o kurzu (klíč \verb|course|) a jednotlivých účastech klientů (klíč \verb|attendances|), které obsahují platbu (klíč \verb|paid|), poznámku (klíč \verb|note|) a navíc také zanořené informace o každém z klientů (klíč \verb|client|), stavu účasti (klíč \verb|attendancestate|), vypočítané informace o číslu lekce v pořadí (klíč \verb|count|) a zda je potřeba připomenout příští platbu (klíč \verb|remind_pay|). Vypočítané informace jsou pouze v odpovědích a při požadavcích na úpravu či vytvoření se neuvádějí, dále zanořené informace kromě samotných účastí se zadávají pouze formou \verb|klíč_id| (tedy např. \verb|attendancestate_id|). Kromě dotazu s uvedeným přesným datumem v parametru se vrací i zrušené lekce.
         
         Každý z dotazů na lekce lze doplnit také o parametr \verb|ordering=start|, resp. \verb|ordering=-start| pro seřazení výsledků dle atributu \verb|start| vzestupně, resp. sestupně (s posledními třemi dotazy, které již výsledky filtrují, lze toto řazení připojit přes operátor \verb|&|), výchozí řazení je sestupně (tedy od posledních lekcí k nejstarším).
         
@@ -124,11 +134,11 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
                 \verb|lectures/:id/|        & \textbf{DELETE}   & smazání lekce s \verb|id|\\
                 \verb|lectures/?group=:id|  & \textbf{GET}      & vrátí lekce skupiny s \verb|id|\\
                 \verb|lectures/?client=:id| & \textbf{GET}      & vrátí lekce klienta s \verb|id| (jen individuální)\\
-                \verb|lectures/?date=:date| & \textbf{GET}      & vrátí lekce (bez zrušených) konající se v zadaný datum \verb|date| (ve formátu YYY-mm-dd)\\ %ISO
+                \verb|lectures/?date=:date| & \textbf{GET}      & vrátí lekce (bez zrušených) konající se v zadaný datum \verb|date| (ve formátu YYYY-mm-dd)\\ %ISO
             \end{tabular}}
         
         \subsection{Skupiny}
-        Rozhraní pro lekce pracuje s klíči \verb|id|, \verb|name| a dále se zanořenými informacemi o kurzu (klíč \verb|course|) a  členech skupiny (klíč \verb|memberships|) se zanořenými informacemi o klientovi (klíč \verb|client|). Pro úpravy a vytváření se opět atributy zadávají pouze formou \verb|klíč_id|.
+        Bod pro lekce pracuje s klíči \verb|id|, \verb|name| a dále se zanořenými informacemi o kurzu (klíč \verb|course|) a  členech skupiny (klíč \verb|memberships|) se zanořenými informacemi o klientovi (klíč \verb|client|). Pro úpravy a vytváření se opět místo zanoření atributy zadávají pouze formou \verb|klíč_id|.
         
             {\centering
             \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
@@ -142,7 +152,7 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
             \end{tabular}}
         
         \subsection{Kurzy}
-        Rozhraní pro kurzy pracuje s klíči \verb|id|, \verb|name| a \verb|visible|.
+        Bod pro kurzy pracuje s klíči \verb|id|, \verb|name| a \verb|visible|.
         
             {\centering
             \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
@@ -155,7 +165,7 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
             \end{tabular}}
             
         \subsection{Stavy účasti}
-        Rozhraní pro stavy účasti pracuje s klíči \verb|id|, \verb|name| a \verb|visible|.
+        Bod pro stavy účasti pracuje s klíči \verb|id|, \verb|name| a \verb|visible|.
         
             {\centering
             \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
@@ -168,7 +178,7 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
             \end{tabular}}
             
         \subsection{Účasti}
-        Rozhraní pro účasti pracuje s klíči \verb|id|, \verb|paid|, \verb|note|, \verb|attendancestate_id| a \verb|client_id|.
+        Bod pro účasti pracuje s klíči \verb|id|, \verb|paid|, \verb|note|, \verb|attendancestate_id| a \verb|client_id|.
         
             {\centering
             \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
@@ -177,7 +187,7 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
             \end{tabular}}
             
         \subsection{Přihlášení}
-        Rozhraní pro účasti pracuje s klíči \verb|username|, \verb|password| a \verb|token|.
+        Bod pro účasti pracuje s klíči \verb|username|, \verb|password| a \verb|token|.
         
             {\centering
             \begin{tabular}{p{\apiA\textwidth} p{\apiB\textwidth} p{\apiC\textwidth}}&&\\
@@ -185,7 +195,6 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
                 \verb|jwt-refresh/|         & \textbf{POST}     & na základě zaslaného (neexpirovaného) tokenu vrátí nový obnovený token\\
             \end{tabular}}
             
-        
     
 \chapter{Implementace}
 V této části představím, jak probíhala samotná implementace aplikace. Je rozdělena do několika částí, nejprve popíši nástroje použité pro vývoj, poté se zaměřím na vytvoření základních funkcionalit serverové části, které budou výchozím krokem pro další podkapitoly, tedy jak se pracuje s datovou částí a jak probíhala tvorba API. Tím připravím všechny součástky potřebné k fungování klientské části, na kterou se zaměřím v další podkapitole a následovat pak bude způsob komunikace klienta se serverem. Na závěr, když už popíši všechny důležité části, uvedu strukturu adresářů a souborů projektu.
@@ -256,7 +265,7 @@ re_path(r'^', TemplateView.as_view(template_name="index.html"))
     	\caption{Výchozí zjednodušená stránka aplikace}\label{lst:html}
     \end{listing}
     
-    \section{Datová část}
+    \section{Datová část}\label{sec:datovaCast}
     K již nainstalovanému PostgreSQL jsem ještě nainstaloval IDE pro databáze od Jetbrains s názvem DataGrip, díky kterému budu moci jednoduše nahlížet jak do lokální databáze, tak do databáze na produkčním serveru a případně provádět i další operace. Jak již bylo zmíněno v kapitole s návrhem architektury \ref{architektura}, je potřeba použít adaptér \href{http://initd.org/psycopg/}{\textit{psycopg2}}, ten umožní v Pythonu, a tedy i Djangu, používat databázi PostgreSQL. Do nastavení Djanga přidám tuto databázi a zbývá definovat tabulky v databázi.
     
     Při návrhu datového modelu v kapitole \ref{datovymodel} jsem nastínil, že díky frameworku mám výrazně ulehčenou práci s databází (a je třeba říci, že pokud člověk doteď žádný framework s touto funkcionalitou nepoužíval, je to opravdu obrovský krok kupředu), v Djangu není potřeba mít skripty pro vytvoření databáze, jediný zdroj pravdy pro datový model, na kterém vše stojí, je model definující jednotlivé entity, jejich atributy a chování. V ukázce \ref{lst:models} je jeden z modelů, konkrétně lekce, vybral jsem jej proto, že je na něm možné ukázat více věcí -- je zde vidět pět atributů, některé jsou nepovinné (\verb|start| a \verb|group|), reprezentují různé typy polí (kladné číslo, cizí klíč, boolean, časová značka) a u cizích klíčů je vidět, na který model odkazují, mohou mít přidělené jméno (použije se při využití opačného vztahu v modelu skupin) a také mají definované chování při smazání příslušného záznamu, tedy kurz se podaří smazat pouze když k němu nejsou žádné lekce (ošetření, abychom nepřišli o žádné záznamy z historie) a v případě smazání skupiny se smažou mj. všechny její lekce.
