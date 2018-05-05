@@ -1,4 +1,4 @@
-# Bachelor's thesis: Web application for the project "Successful first-grader"
+# Bachelor's thesis: Web application for the project “Successful first-grader”
 This thesis is written in Czech language, so the following text won't be in English.
 ***
 ## Téma a zadání bakalářské práce
