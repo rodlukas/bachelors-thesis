@@ -339,7 +339,7 @@ sp\^ osobom, ktor\'y nezni\v zuje hodnotu Diela (vr\'atane komer\v cn\'eho vyu\v
 \DeclareRobustCommand{\titlepage}{
         \begin{titlingpage}
         \noindent
-        \if\@lang1{\includegraphics[width=0.5\textwidth]{cvut-logo-bw}}\else\if\@lang2{\includegraphics[width=0.5\textwidth]{cvut-logo-bw}}\else{\includegraphics[width=0.5\textwidth]{cvut-logo-bw-en}}\fi\fi
+        \if\@lang1{\includegraphics[width=0.5\textwidth]{img/cvut-logo-bw}}\else\if\@lang2{\includegraphics[width=0.5\textwidth]{img/cvut-logo-bw}}\else{\includegraphics[width=0.5\textwidth]{cvut-logo-bw-en}}\fi\fi
         
         \vfill
 		
@@ -480,7 +480,7 @@ sp\^ osobom, ktor\'y nezni\v zuje hodnotu Diela (vr\'atane komer\v cn\'eho vyu\v
 	\else
 		\ClassError{FITthesis}{Abstract in Czech unspecified}{Specify abstract in Czech language using the \abstractCS command.}
 	\fi
-
+    
 	\if@keywordscsdefined
 		\paragraph*{Kl{\' i}{\v c}ov{\' a} slova} \thekeywordscs{}
 	\else
@@ -488,7 +488,7 @@ sp\^ osobom, ktor\'y nezni\v zuje hodnotu Diela (vr\'atane komer\v cn\'eho vyu\v
 	\fi
 
 	\vfil
-
+    \pagebreak
 	\if@abstractendefined
 		\chapterstyletitle{Abstract}\theabstracten
 	\else

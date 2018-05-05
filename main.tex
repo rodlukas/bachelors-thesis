@@ -17,12 +17,12 @@
 \usepackage{lscape}
 \usepackage{bookmark} % pro moznost ukonceni part
 \usepackage[style=iso-numeric]{biblatex}
+
 \addbibresource{sources.bib}
 \setcounter{biburllcpenalty}{7000} % aby se spravne lamaly adresy v bibliografii:
 \setcounter{biburlucpenalty}{8000}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-
 \department{Katedra softwarového inženýrství}
 \title{Webová aplikace pro evidenci klientů projektu \enquote{Úspěšný prvňáček}}
 \authorGN{Lukáš} %(křestní) jméno (jména) autora
@@ -30,18 +30,23 @@
 \authorWithDegrees{Lukáš Rod} %jméno autora včetně současných akademických titulů
 \author{Lukáš Rod} %jméno autora bez akademických titulů
 \supervisor{Ing. Stanislav Kuznetsov}
-\acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
-\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má sloužit jako evidence klientů, jejich docházky, skupin, plateb za lekce a evidování celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky Django REST Framework. Na závěr bylo úspěšně provedeno akceptační testování, na jehož základě proběhlo vylepšení zjištěných nedostatků. Aplikace je nasazena na hosting a lektorka ji denně používá.}
-\abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
+\acknowledgements{Rád bych poděkoval Ing. Stanislavu Kuznetsovi za cenné rady a pomoc při tvorbě této práce. Děkuji za spolupráci své mamce, PaedDr. Janě Rodové, která se mnou jakožto lektorka Úspěšného prvňáčka po celou dobu spolupracovala. Děkuji celé své rodině a přátelům za podporu a trpělivost během celého studia.}
+
+\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt \enquote{Úspěšný prvňáček}, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má umožnit evidování klientů, jejich docházky, skupin, plateb za lekce a zobrazení celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky Django REST Framework. Na závěr bylo úspěšně provedeno akceptační testování, na jehož základě proběhlo vylepšení zjištěných nedostatků. Aplikace je nasazena na hosting Heroku a lektorka ji denně používá.}
+
+\abstractEN{The goal of this thesis is to build a web application for the project "Successful first-grader" which offers an extra education and courses for preschoolers. This application should allow the lector to store data about clients, their attendances, groups, payments for lectures and view the entire client's history. The server side is written in Python with Django web framework. The client side is built with React and communicates with the server REST API thanks to Django REST framework. Finally, acceptance testing was performed and all found issues were fixed. The application is deployed to Heroku hosting and is used daily by the lector.}
+
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{1} %volba Prohlášení (číslo 1-6)
+
 \keywordsCS{webová aplikace, evidence klientů a lekcí, kurzy pro předškoláky}
 \keywordsEN{web application, client and lectures management, courses for preschoolers}
+
 \website{https://github.com/rodlukas/bachelors-thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
 %\setcounter{tocdepth}{3}
 \renewcommand{\listingscaption}{Ukázka kódu}
 \renewcommand{\listoflistingscaption}{Seznam ukázek kódu}
-
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
 \begin{document}
     \listoflistings
