@@ -26,21 +26,21 @@ Cílem této kapitoly je analyzovat entity, procesy a fungování projektu a ses
         \item \textbf{evidence údajů o lekci:} součástí evidovaných dat pro každou lekci bude datum a čas, stav účasti (omluven, neomluven, odvolán ze strany lektorky), zda je zaplaceno a další poznámka (například informace, že klientovi byla zapůjčena knížka),
         \item \textbf{evidence předplacených lekcí:} aplikace umožní evidovat předplacené lekce klientů,
         \item \textbf{přehled pro aktuální den:} na hlavní stránce po přihlášení je potřeba zobrazit plán pro aktuální den -- klienty spolu s dalšími informacemi o lekci (stav účasti, platba, kurz, datum, čas, číslo lekce, zda mají příště platit a další poznámky), v případě zrušené lekce ze strany lektorky se lekce v denním přehledu nemá zobrazit (zobrazí se pouze v kartě klienta a v týdenním přehledu)
-        \item \textbf{další upozornění:} u lekcí, které jsou jako poslední zaplacené je potřeba upozornit klienta, že příště musí platit, tedy je třeba toto upozornění lektorce připomenout u příslušné lekce,
+        \item \textbf{upozornění na platbu příště:} u lekcí, které jsou jako poslední zaplacené je potřeba upozornit klienta, že příště musí platit, tedy je třeba toto upozornění lektorce připomenout u příslušné lekce,
         \item \textbf{počítání lekcí:} u lekcí je potřeba zobrazit, o kolikátou (navštívenou, tedy nepočítají se omluvené) lekci v rámci kurzu se jedná,
         \item \textbf{týdenní přehled:} aplikace umožní zobrazit lekce v týdenním přehledu (pouze pracovní dny) a umožní mezi týdny přecházet jako v diáři.
     \end{itemize}
     
     \subsection{Nefunkční požadavky}
     \begin{itemize}
-        \item \textbf{podporované prohlížeče:} aplikace bude plně funkční a kompatibilní s posledními verzemi běžně používaných prohlížečů, tedy Mozilla Firefox, Google Chrome, Microsoft Edge, Apple Safari (primárně bude ale využívána na desktopovém Firefoxu),
-        \item \textbf{podporovaná zařízení:} aplikaci bude přizpůsobená zejména pro používání na notebooku (kde bude používána primárně, jedná se o rozlišení 1920 × 1080, 15,6“), bude ji ale možno bez omezení používat i na tabletu (iPad s iOS 11.3 a 9,7“ displejem) a chytrém telefonu (s Androidem 8.0 a 5,2“ displejem),
+        \item \textbf{kompatibilita s prohlížeči:} aplikace bude plně funkční a kompatibilní s posledními verzemi běžně používaných prohlížečů, tedy Mozilla Firefox, Google Chrome, Microsoft Edge, Apple Safari (primárně bude ale využívána na desktopovém Firefoxu),
+        \item \textbf{podporovaná zařízení:} aplikaci bude přizpůsobená zejména pro používání na notebooku (kde bude používána primárně, rozlišení 1920~×~1080 a 15,6palcový displej), bude ji ale možno bez omezení používat i na tabletu (iPad s iOS~11.3 a 9,7palcovým displejem) a chytrém telefonu (s Androidem~8.0 a 5,2palcovým~displejem),
         \item \textbf{připravenost na rozšíření a údržbu:} aplikace bude vytvořena tak, aby byla snadno rozšířitelná a upravitelná, je totiž plánovaný rozvoj projektu a rozšíření aplikace o další součásti (např. evidence prodejů pomůcek a učebnic ad.),
         \item \textbf{srozumitelné a jednoduché rozhraní aplikace:} aplikace tvoří podpůrný systém pro zefektivnění a urychlení práce, musí dát možnost uživateli co nejsnadněji, nejrychleji a nejpochopitelněji provést každý úkon a rychle zjistit potřebné informace,
         \item \textbf{bezpečnost:} aplikace obsahuje osobní data klientů, je tedy třeba zajistit odpovídající úroveň zabezpečení, aby se případný útočník nemohl dostat k citlivým údajům.
     \end{itemize}
     
-\chapter{Návrh}
+\chapter{Návrh}\label{navrh}
 V této kapitole nejprve popíši návrh logického datového modelu aplikace a vysvětlím, které důvody mě vedly k vytvoření modelu zrovna takovýmto způsobem. Poté bude následovat návrh architektury aplikace, při kterém vyjdu z už zvolených technologií v sekci \ref{reseni}. Krátce uvedu, jak probíhal návrh uživatelského rozhraní spolu s ukázkou a na závěr popíši navržené komunikační rozhraní API pro komunikaci mezi serverem a klientem. 
 
     \section{Datový model}\label{datovymodel}
@@ -196,7 +196,7 @@ V této kapitole nejprve popíši návrh logického datového modelu aplikace a 
             \end{tabular}}
             
     
-\chapter{Implementace}
+\chapter{Implementace}\label{implementace}
 V této kapitole představím průběh samotné implementace. Je rozdělena do několika částí, nejprve popíši nástroje použité pro vývoj a přípravu prostředí, poté se zaměřím na vytvoření základního nastavení serverové a klientské části, které bude výchozím krokem pro další sekce, ve kterých postupně ukážu práci s datovou částí a tvorbu API. Tím připravím všechny součásti potřebné k fungování a vytvoření plnohodnotné klientské části v další sekci, uvedu zde také způsob komunikace se serverovou částí, tvorbu UI a další způsoby práce s JS a Reactem. Na závěr uvedu způsoby řešení bezpečnosti v aplikaci.
 
 Nejproblematičtější fází se překvapivě stala konfigurace Djanga a Reactu tak, aby spolu tyto dvě části fungovaly, a také pokročilejší přizpůsobení API. Oběma problémům se budu také v této kapitole věnovat.
@@ -415,7 +415,7 @@ export default class NazevKomponenty extends Component {
     	\caption{Kostra pokročilejší komponenty v Reactu}\label{lst:react2}
     \end{listing}
     
-    \subsection{Routování a HTTP požadavky v Reactu}
+    \subsection{Routování a HTTP požadavky v Reactu}\label{subsec:reactPozadavky}
     Nyní chybí dořešit poslední dvě části v Reactu: routování a komunikaci přes API, ani jedno totiž React v základu nemá, jak již bylo řečeno v podsekci \ref{react}. Pro routování jsem zvolil knihovnu \href{https://reacttraining.com/}{React Router}, která mi umožní v Reactu snadno implementovat SPA a zajistí také fungování tak, jak by uživatel očekával, tedy při přechodech se mění URL adresa v prohlížeči, korektně funguje navigace napříč historií apod. K tomu využívám \verb|BrowserRouter|, který se nově objevil v přepracované poslední čtvrté verzi této knihovny, oproti \verb|HashRouter| předpokládá funkční routování i na straně serveru a využívá HTML5 API pro historii (HashRouter nepoužívá běžnou čistou URL, ale pracuje s fragmentem URL za přidaným znakem \verb|#|), to je díky kódu \ref{lst:urls.py} zařízeno, nic tedy nebrání použít naplno tuto novou komponentu.
     
     \begin{listing}[ht]
@@ -509,7 +509,7 @@ script:
             \item funkčnost API požadavků včetně autorizace, vytvoření uživatele pro administraci, získání tokenu, vytvoření klienta přes API -- je tedy vytvořen účet pro uživatele aplikace, pro ten se vyzkouší získání jeho tokenu prostřednictvím API a následně se provede přes API autorizovaný pokus (s tokenem) o přidání klienta a zkontroluje se, zda byl přidán.
         \end{itemize}
 
-    \section{Vlastní testování}
+    \section{Vyladění aplikace}
     Pro ověření toho, že aplikace skutečně splňuje všechny požadavky a funguje korektně jsem ji na závěr vývoje sám otestoval. Jednalo se jak o testy funkční (tedy zda aplikace správně plní vše, k čemu je určena), tak nefunkční (např. responzivita, kompatibilita v prohlížečích), součástí této kontroly byla i kontrola všech kódů, a to jak pro odhalení možných chyb, tak pro ověření, že je aplikace korektně navržená a bude tak v budoucnu díky tomu snadněji rozšířitelná a udržovatelná (tedy např. konstanty, neopakující se kód, potenciální špatné ošetření).
     
         \begin{itemize}
@@ -529,22 +529,42 @@ script:
     \section{Akceptační testování}
     Po provedení úprav na základě vlastního testování v předchozí části jsem přistoupil k akceptačnímu testování. Aplikace byla díky Travisu již připravená ve své nejnovější verzi na produkčním serveru na Heroku (procesu nasazení se budu věnovat v následující kapitole \ref{nasazeni}. Pro akceptační testování se obvykle vytvářejí scénáře, které nejprve testuje programátor a poté jsou testovány zákazníkem. Vzhledem k tomu, že bylo potřeba, aby lektorka tak či tak naplnila aplikaci daty ze všech svých zdrojů, kde jednotlivé informace eviduje (tedy z Excelu, diáře, poznámek na papírech apod.), rozhodl jsem se jako scénář použít prakticky toto zadávání stávajících údajů, které vzhledem k počtu údajů pokryje všechny možnosti úkonů.
     
-    Akceptační testování bylo prakticky spojeno i s testováním použitelnosti (tedy pozorování uživatele a nalezení nedostatků, které jsem mohl přehlédnout v důsledku toho, že jsem aplikaci sám vytvářel). Testování bylo úspěšně provedeno a na základě pozorování práce lektorky v aplikaci a také jejích postřehů bylo nalezeno několik problémů a možných vylepšení, vybrané nejdůležitější uvádím v seznamu spolu se způsobem jejich řešení:
+    Akceptační testování jsem prakticky spojil i s testováním použitelnosti (tedy pozorování uživatele a nalezení nedostatků, které jsem mohl přehlédnout v důsledku toho, že jsem aplikaci sám vytvářel).
     
+        \subsection{Splnění požadavků}
+        Přikládám zde přehled splnění funkčních i nefunkčních požadavků:
         \begin{itemize}
-            \item ve formuláři pro úpravu klienta je pole moc malé, je potřeba umožnit psát více řádků -- vyřešeno zobrazením \verb|textarea| místo stávajícího \verb|input| pole,
-            \item do karet by bylo vhodné doplnit další informace, které se zatím vyskytují jen v přehledu všech skupin a klientů:
-            \begin{itemize}
-                \item v kartě klienta jeho údaje včetně členství ve skupinách -- doplněno (stačilo využít již připravené API),
-                \item v kartě skupiny aktuální členy -- doplněno (opět stačilo využít již připravené API),
-            \end{itemize} 
-            \item při přidávání položek není automaticky předvybráno ke psaní první pole ve formuláři a lektorka si často nevšimne, že nikam napíše -- nastaveno automatické vybrání prvního pole pro všechny formuláře, kde je to potřeba,
-            \item při přidávání kurzu a stavu účasti je u pole pro název napsáno jméno, to je pro lektorku matoucí (i kvůli tomu, že v přehledu stavů účasti i kurzů je v záhlaví tabulky nekonzistentně uveden \enquote{název}) a svádí to ke psaní jména klienta -- změněno na název,
-            \item v kartě klienta není poznat, že není ve skupině, nebo že není zadán telefon/e-mail (pokud není ve skupině, řádek se členstvím ve skupinách se ani nezobrazuje, což je nekonzistentní s ostatními údajů) -- upraveno, u skupin i ostatních údajů se zobrazí tři pomlčky,
-            \item skupiny většinou mají délku lekce 45, bylo by tedy vhodné, aby místo výchozích 30 (které zůstanou u jednotlivců) bylo automaticky přednastaveno 45 -- doplněno,
-            \item při označení stávající lekce jako nepředplacené se nezaplacené termíny označily jako zaplacené -- opraveno,
-            \item skupinová lekce se špatně ruší, protože se musí se u každého člena zadat zrušeno -- doplněna nová funkcionalita pro jednoduché rušení lekcí (jak individuálních, tak skupinových).
+            \item \textbf{evidence klientů:} splněno,
+            \item \textbf{evidence lekcí klientů:} splněno,
+            \item \textbf{evidence údajů o lekci:} splněno,
+            \item \textbf{evidence předplacených lekcí:} splněno, ale je potřeba vytvořit pohodlnější možnost pro předplacené skupinové lekce (viz. kapitola s dalšími možnými rozšířeními \ref{dalsirozsireni}),
+            \item \textbf{přehled pro aktuální den:} splněno,
+            \item \textbf{upozornění na platbu příště:} splněno,
+            \item \textbf{počítání lekcí:} splněno,
+            \item \textbf{týdenní přehled:} splněno,
+            \item \textbf{kompatibilita s prohlížeči:} aplikace je plně funkční a zobrazuje se korektně ve všech běžných prohlížečích v posledních verzích: Microsoft Edge~41.16299.402.0, Google Chrome~66.0.3359.139, Mozilla Firefox~59.0.3, Apple Safari~11.1 (na macOS i iOS),
+            \item \textbf{podporovaná zařízení:} korektní zobrazení stránky bylo testováno jak pomocí vývojářských nástrojů v prohlížečích pro responzivní design, tak přímo na konkrétních zařízeních, především na těch používaných lektorkou: iPad s iOS~11.3 a 9,7palcovým displejem, Nokia~5 s Androidem~8.0 a 5,2palcovým~displejem, notebook s rozlišením 1920~×~1080 a 15,6palcovým~displejem,
+            \item \textbf{připravenost na rozšíření a údržbu:} během návrhu a implementace byl kladen důraz na kvalitní kód a plánované rozšíření do budoucna (viz. kapitola \ref{navrh} a \ref{implementace} -- například vytvoření jednotného rozhraní pro požadavky na API v Reactu uvedené v podsekci \ref{subsec:reactPozadavky}),
+            \item \textbf{srozumitelné a jednoduché rozhraní aplikace:} při návrhu UI a implementaci jsme ve spolupráci s lektorkou postupnými iteracemi do řešení, které je pro ni srozumitelné, přehledné a neobsahuje žádné zbytečné informace navíc,
+            \item \textbf{bezpečnost:} splněno (viz. sekce \ref{sec:bezpecnost}).
         \end{itemize}
+        
+        \subsection{Postřehy z akceptačního testování}
+        Testování bylo úspěšně provedeno a na základě pozorování práce lektorky v aplikaci a také jejích postřehů bylo nalezeno několik problémů a možných vylepšení, vybrané nejdůležitější uvádím v seznamu spolu se způsobem jejich řešení:
+            \begin{itemize}
+                \item ve formuláři pro úpravu klienta je pole moc malé, je potřeba umožnit psát více řádků -- vyřešeno zobrazením \verb|textarea| místo stávajícího \verb|input| pole,
+                \item do karet by bylo vhodné doplnit další informace, které se zatím vyskytují jen v přehledu všech skupin a klientů:
+                \begin{itemize}
+                    \item v kartě klienta jeho údaje včetně členství ve skupinách -- doplněno (stačilo využít již připravené API),
+                    \item v kartě skupiny aktuální členy -- doplněno (opět stačilo využít již připravené API),
+                \end{itemize} 
+                \item při přidávání položek není automaticky předvybráno ke psaní první pole ve formuláři a lektorka si často nevšimne, že nikam napíše -- nastaveno automatické vybrání prvního pole pro všechny formuláře, kde je to potřeba,
+                \item při přidávání kurzu a stavu účasti je u pole pro název napsáno jméno, to je pro lektorku matoucí (i kvůli tomu, že v přehledu stavů účasti i kurzů je v záhlaví tabulky nekonzistentně uveden \enquote{název}) a svádí to ke psaní jména klienta -- změněno na název,
+                \item v kartě klienta není poznat, že není ve skupině, nebo že není zadán telefon/e-mail (pokud není ve skupině, řádek se členstvím ve skupinách se ani nezobrazuje, což je nekonzistentní s ostatními údajů) -- upraveno, u skupin i ostatních údajů se zobrazí tři pomlčky,
+                \item skupiny většinou mají délku lekce 45, bylo by tedy vhodné, aby místo výchozích 30 (které zůstanou u jednotlivců) bylo automaticky přednastaveno 45 -- doplněno,
+                \item při označení stávající lekce jako nepředplacené se nezaplacené termíny označily jako zaplacené -- opraveno,
+                \item skupinová lekce se špatně ruší, protože se musí se u každého člena zadat zrušeno -- doplněna nová funkcionalita pro jednoduché rušení lekcí (jak individuálních, tak skupinových).
+            \end{itemize}
         
         
 \chapter{Nasazení}\label{nasazeni}
@@ -600,9 +620,28 @@ deploy:
     \section{Ukázka aplikace}
     V této sekci krátce popíši a ukáži na obrázcích aktuální podobu nasazené aplikace. V ukázkách jsou samozřejmě začerněny osobní údaje klientů.
     
-    V příloze na obrázku \ref{fig:screen-karta} je vidět podoba karty klienta, který docházel na Kurz Slabika a také dochází na kurz Feuersteinova metoda. Kromě údajů klienta je zde vidět několik barev lekcí, žluté značí budoucí lekce, červené s přeškrtnutý datumem zrušené lekce ze strany lektorky, bílé jsou běžné lekce bez dalších příznaků.
+    Na obrázku \ref{fig:screen-karta} je vidět podoba karty klienta, který docházel na Kurz Slabika a také dochází na kurz Feuersteinova metoda. Kromě údajů klienta je zde vidět několik barev lekcí, žluté značí budoucí lekce, červené s přeškrtnutý datem zrušené lekce ze strany lektorky, bílé jsou běžné lekce bez dalších příznaků.
+        
+        \begin{figure}\centering
+        	\includegraphics[width=1\textwidth]{img/screen-karta.png}
+        	\caption{Snímek obrazovky s kartou klienta}\label{fig:screen-karta}
+        \end{figure}
     
-    V příloze na obrázku \ref{fig:screen-den} je ukázka přehledu pro aktuální den, toto je hlavní stránka aplikace, která se zobrazí po přihlášení. Lektorka zde vidí veškeré informace k lekcím na aktuální den a jednoduše může jedním kliknutím změnit stav účasti klientů či platbu (po provedení se zobrazí barevná notifikace s výsledkem operace), případně otevřít kartu klienta nebo skupiny. Bíle jsou individuální lekce, šedou barvou jsou zvýrazněny skupinové lekce. Naprosto stejné prostředí nabízí týdenní přehled v příloze na obrázku \ref{fig:screen-tyden} (je to dáno znovupoužitím stejné React komponenty), zde je vidět kromě již zmíněných prvků v denním přehledu modře zvýrazněný aktuální den v záhlaví příslušného dne, díky navigaci v horní části stránky lze bez znovunačítání stránky přecházet mezi jednotlivými týdny a vracet se jedním kliknutím na aktuální týden (tlačítko \enquote{Dnes}).
+    Na obrázku \ref{fig:screen-den} je ukázka přehledu pro aktuální den, toto je hlavní stránka aplikace, která se zobrazí po přihlášení. Lektorka zde vidí veškeré informace k lekcím na aktuální den a jednoduše může jedním kliknutím změnit stav účasti klientů či platbu (po provedení se zobrazí barevná notifikace s výsledkem operace), případně otevřít kartu klienta nebo skupiny. Bíle jsou individuální lekce, šedou barvou jsou zvýrazněny skupinové lekce.
+    
+        \begin{figure}[hb]\centering
+        	\includegraphics[width=1\textwidth]{img/screen-den.png}
+        	\caption{Snímek obrazovky s denním přehledem}\label{fig:screen-den}
+        \end{figure}
+    
+    Naprosto stejné prostředí nabízí týdenní přehled na obrázku \ref{fig:screen-tyden} (je to dáno znovupoužitím stejné React komponenty), zde je vidět kromě již zmíněných prvků v denním přehledu modře zvýrazněný aktuální den v záhlaví příslušného dne, díky navigaci v horní části stránky lze bez znovunačítání stránky přecházet mezi jednotlivými týdny a vracet se jedním kliknutím na aktuální týden (tlačítko \enquote{Dnes}).
+        
+        \begin{landscape}
+            \begin{figure}\centering
+            	\includegraphics[totalheight=0.8\textheight]{img/screen-tyden.png}
+            	\caption{Snímek obrazovky s týdenním přehledem}\label{fig:screen-tyden}
+            \end{figure}
+        \end{landscape}
     
 
 \chapter{Další možná rozšíření}\label{dalsirozsireni}
