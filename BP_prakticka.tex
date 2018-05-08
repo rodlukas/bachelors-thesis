@@ -382,7 +382,7 @@ client_id = serializers.PrimaryKeyRelatedField(
         \item \enquote{state}, tedy stav, který se nedědí a je spravován uvnitř komponenty, je tedy podobný proměnným ve funkcích.
     \end{itemize}
     
-    Díky těmto atributům React zařídí překreslení pouze té části stránky, kde nastala změna. Velmi jednoduchá bezstavová komponenta využívající nejnovější prvky syntaxe JS používaná napříč aplikací k informování, zda má klient příště platit, je v ukázce~\ref{lst:react1}. V aplikaci dále používám i pokročilejší stavové komponenty, pro lepší pochopení a popis vkládám ukázku~\ref{lst:react2} (z úsporných důvodů nehezky zarovnaná), která obsahuje i komentáře, kde se nachází které části kódu a jejich účel, zdůrazním zde metodu \verb|componentWillReceiveProps|, která je zde proto, že v rodiči se provádí asynchronní požadavek na API a některý z jeho výsledků se předává do této komponenty, tedy do potomka, a zde se na jeho základě komponenta vykresluje, vzhledem k tomu, že jsou \enquote{props} samy o sobě neměnné, je třeba nový stav z potomka zpracovat v této metodě a změny zde projevit do vlastního stavu komponenty. 
+    Díky těmto atributům React zařídí překreslení pouze té části stránky, kde nastala změna. Velmi jednoduchá bezstavová komponenta využívající nejnovější prvky syntaxe JS používaná napříč aplikací k informování, zda má klient příště platit, je v ukázce~\ref{lst:react1}. V aplikaci dále používám i pokročilejší stavové komponenty, pro lepší pochopení a popis vkládám ukázku~\ref{lst:react2}, která obsahuje i komentáře, kde se nachází které části kódu a jejich účel, zdůrazním zde metodu \verb|componentWillReceiveProps|, která je zde proto, že v rodiči se provádí asynchronní požadavek na API a některý z jeho výsledků se předává do této komponenty, tedy do potomka, a zde se na jeho základě komponenta vykresluje, vzhledem k tomu, že jsou \enquote{props} samy o sobě neměnné, je třeba nový stav z potomka zpracovat v této metodě a změny zde projevit do vlastního stavu komponenty. 
     
     \begin{listing}
     	\begin{minted}[bgcolor=bg]{js}
@@ -402,14 +402,22 @@ import React, {Component} from "react"
 // import dalších JS komponent a CSS souborů
 export default class NazevKomponenty extends Component {
     constructor(props) {
-    /* nastavení stavu a dalších proměnných/props*/}
-    dalsiFunkce = () => {/* tělo funkce */}
-    componentDidMount() {/* požadavky na API */}
+        // nastavení stavu a dalších proměnných/props
+    }
+    dalsiFunkce = () => {
+        // tělo funkce
+    }
+    componentDidMount() {
+        // požadavky na API
+    }
     componentWillReceiveProps(nextProps) {
-    /* aktualizace stavu při změně stavu rodiče */}
+        // aktualizace stavu při změně stavu rodiče
+    }
     render() {
-    // příprava dalších komponent a proměnných
-        return (<div>{/* vykreslení v JSX */}</div>)}
+        // příprava dalších komponent a proměnných
+        return (
+            <div>{/* vykreslení v JSX */}</div>)
+    }
 }
     	\end{minted}
     	\caption{Kostra pokročilejší komponenty v Reactu}\label{lst:react2}
