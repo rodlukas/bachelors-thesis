@@ -21,7 +21,7 @@
 \addbibresource{sources.bib}
 \setcounter{biburllcpenalty}{7000} % aby se spravne lamaly adresy v bibliografii:
 \setcounter{biburlucpenalty}{8000}
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{3} % nadpisy vsech urovni v obsahu
 \definecolor{bg}{rgb}{0.95,0.95,0.95} % pozadi pro kody
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -34,7 +34,7 @@
 \supervisor{Ing. Stanislav Kuznetsov}
 \acknowledgements{Rád bych poděkoval Ing. Stanislavu Kuznetsovi za cenné rady a pomoc při tvorbě této práce. Děkuji za spolupráci své mamce, PaedDr. Janě Rodové, která se mnou jakožto lektorka Úspěšného prvňáčka po celou dobu spolupracovala. Děkuji celé své rodině a přátelům za podporu a trpělivost během celého studia.}
 
-\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt \enquote{Úspěšný prvňáček}, který nabízí doučování a kurzy pro předškoláky. Výsledná aplikace má umožnit evidování klientů, jejich docházky, skupin, plateb za lekce a zobrazení celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky Django REST Framework. Na závěr bylo úspěšně provedeno akceptační testování, na jehož základě proběhlo vylepšení zjištěných nedostatků. Aplikace je nasazena na hosting Heroku a lektorka ji denně používá.}
+\abstractCS{Tato práce si klade za cíl vytvořit webovou aplikaci pro projekt \enquote{Úspěšný prvňáček}, který nabízí doučování a kurzy pro budoucí nebo nastupující prvňáčky. Výsledná aplikace má umožnit evidování klientů, jejich docházky, skupin, plateb za lekce a zobrazení celé historie klienta. Serverová část aplikace je napsána v Pythonu s webovým frameworkem Django. Klientská část je v Reactu a se serverovou částí komunikuje přes REST API díky Django REST Frameworku. Na závěr bylo úspěšně provedeno akceptační testování, na jehož základě proběhlo vylepšení zjištěných nedostatků. Aplikace je nasazena na hosting Heroku a lektorka ji denně používá.}
 
 \abstractEN{The goal of this thesis is to build a web application for the project ``Successful first-grader'' which offers an extra education and courses for preschoolers. This application should allow the lector to store data about clients, their attendances, groups, payments for lectures and view the entire client\textquotesingle s history. The server side is written in Python with Django web framework. The client side is built with React and communicates with the server REST API thanks to Django REST framework. Finally, acceptance testing was performed and all found issues were fixed. The application is deployed to Heroku hosting and is used daily by the lector.}
 
@@ -78,17 +78,18 @@
     \chapter{Seznam použitých zkratek}
         % \printglossaries
         \begin{description}
-            \item[ADHD] Attention Deficit Hyperactivity Disorder
             \item[API] Application Programming Interface
             \item[AJAX] Asynchronous JavaScript and XML
             \item[CBA] Component-Based Architecture
+            \item[CMS] Content Management System
             \item[CRM] Customer Relationship Management
             \item[CRUD] create-read-update-delete
             \item[CSR] Client-Side Rendering
+            \item[CSRF] Cross-Site Request Forgery
             \item[CSS] Cascading Style Sheets
             \item[DRF] Django REST Framework
             \item[DRY] Don\textquotesingle t repeat yourself
-            \item[GUI] Graphical user interface
+            \item[GUI] Graphical User Interface
             \item[HTML] Hypertext Markup Language
             \item[HTTP] Hypertext Transfer Protocol
             \item[IaaS] Infrastructure as a Service
@@ -109,14 +110,14 @@
             \item[URL] Uniform Resource Locator
             \item[ÚP] Úspěšný prvňáček
             \item[UX] User Experience
-            \item[XML] Extensible markup language
+            \item[XML] Extensible Markup Language
+            \item[XSS] Cross-Site Scripting
         \end{description}
     
     \chapter{Obsah přiloženého CD}
         \begin{figure}
         	\dirtree{%
         		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
-        		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
         		.1 src.
         		.2 impl\DTcomment{zdrojové kódy implementace}.
         		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
