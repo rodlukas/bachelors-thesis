@@ -634,27 +634,27 @@ deploy:
     \end{listing}
     
     \section{Ukázka aplikace}
-    V této sekci krátce popíši a ukáži na obrázcích aktuální podobu nasazené aplikace. V ukázkách jsou samozřejmě začerněny osobní údaje klientů.
+    V této sekci krátce popíši a ukáži na obrázcích aktuální podobu nasazené aplikace. Ukázky jsou anonymizovány a oříznuty pro lepší čitelnost.
     
     Na obrázku~\ref{fig:screen-karta} je vidět podoba karty klienta, který docházel na Kurz Slabika a také dochází na kurz Feuersteinova metoda. Kromě údajů klienta je zde vidět několik barev lekcí, žluté značí budoucí lekce, červené s přeškrtnutý datem zrušené lekce ze strany lektorky, bílé jsou běžné lekce bez dalších příznaků.
         
         \begin{figure}\centering
-        	\includegraphics[width=1\textwidth]{img/screen-karta.png}
+        	\includegraphics[width=1\textwidth]{img/screenshoty/screen-karta.png}
         	\caption{Snímek obrazovky s kartou klienta}\label{fig:screen-karta}
         \end{figure}
     
     Na obrázku~\ref{fig:screen-den} je ukázka přehledu pro aktuální den, toto je hlavní stránka aplikace, která se zobrazí po přihlášení. Lektorka zde vidí veškeré informace k lekcím na aktuální den a jednoduše může jedním kliknutím změnit stav účasti klientů či platbu (po provedení se zobrazí barevná notifikace s výsledkem operace), případně otevřít kartu klienta nebo skupiny. Bíle jsou individuální lekce, šedou barvou jsou zvýrazněny skupinové lekce.
     
         \begin{figure}[hb]\centering
-        	\includegraphics[width=1\textwidth]{img/screen-den.png}
-        	\caption{Snímek obrazovky s denním přehledem}\label{fig:screen-den}
+        	\includegraphics[width=1\textwidth]{img/screenshoty/screen-den-orez.png}
+        	\caption{Snímek části obrazovky s denním přehledem}\label{fig:screen-den}
         \end{figure}
     
     Naprosto stejné prostředí nabízí týdenní přehled na obrázku~\ref{fig:screen-tyden} (je to dáno znovupoužitím stejné React komponenty), zde je vidět kromě již zmíněných prvků v denním přehledu modře zvýrazněný aktuální den v záhlaví příslušného dne, díky navigaci v horní části stránky lze bez znovunačítání stránky přecházet mezi jednotlivými týdny a vracet se jedním kliknutím na aktuální týden (tlačítko \enquote{Dnes}).
         
         \begin{landscape}
             \begin{figure}\centering
-            	\includegraphics[totalheight=0.8\textheight]{img/screen-tyden.png}
+            	\includegraphics[totalheight=0.83\textheight]{img/screenshoty/screen-tyden.png}
             	\caption{Snímek obrazovky s týdenním přehledem}\label{fig:screen-tyden}
             \end{figure}
         \end{landscape}
