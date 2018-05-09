@@ -62,8 +62,8 @@ V poslední části této kapitoly popíši možné přístupy k řešení inter
     
     \textit{\enquote{MVC vychází z teorie, že části kódu, které vykonávají různé úkoly, by měly být od sebe oddělené.}} \cite{mvc-cz2} Nedodržení tohoto přístupu často pak může i díky absenci disciplíny programátora vést ke špagetovému kódu, vše je smícháno a výsledná aplikace je neudržitelná a těžko rozšiřitelná \cite{mvc-cz2,mvc-2}. Díky tomuto rozdělení zodpovědnosti se při vývoji může programátor zaměřit pouze na příslušnou část a kód splňuje principy vysoké soudržnosti a nízké provázanosti \cite{mvc-medium1}. Na druhou stranu je ale třeba říci, že se menší aplikace při použití MVC může stát poměrně robustní, je to ale daň za dekompozici do tří částí a s tím spojené již zmíněné výhody \cite{mvc-medium1}. Další výhodou je možnost mít například více pohledů na stejný model \cite{mvc-1}. Aplikace je, jak je uvedeno v \cite{mvc-cz2}, rozdělena do tří částí:
     \begin{itemize}
-        \item modely -- starají se o logiku (výpočty, výsledky, získání a uložení dat, validace), při použití ORM (Object-relational mapping) korespondují modely s tabulkami v databázi,
-        \item pohledy -- mají na starost vykreslení stránky v HTML (Hyper Text Markup Language) a JS (Javascriptu), do pohledů jsou nejčastěji pomocí šablonovacího systému dodána všechna potřebná data,
+        \item modely -- starají se o logiku (výpočty, výsledky, získání a uložení dat, validace), při použití ORM (Object-Relational Mapping) korespondují modely s tabulkami v databázi,
+        \item pohledy -- mají na starost vykreslení stránky v HTML (Hyper Text Markup Language) a JS (Javascript), do pohledů jsou nejčastěji pomocí šablonovacího systému dodána všechna potřebná data,
         \item kontrolery -- prostředníci mezi modely a pohledy, propojuje je a říká, co vše je potřeba provést pro výsledek.
     \end{itemize}
     
