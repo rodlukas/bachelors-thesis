@@ -2,8 +2,6 @@
 % thesis=B bachelor's thesis
 % thesis=M master's thesis
 % czech thesis in Czech language
-% slovak thesis in Slovak language
-% english thesis in English language
 % hidelinks remove colour boxes around hyperlinks
 
 \documentclass[thesis=B,czech]{FITthesis}[2012/06/26]
@@ -11,18 +9,20 @@
 \usepackage{graphicx} %graphics files inclusion
 \usepackage{dirtree} %directory tree visualisation
 \usepackage{minted}
-\usemintedstyle{xcode} % aby nebyly zvyrazneny chyby v Reactu, jehoz syntaxe neni znama
 \usepackage{xevlna}
 \usepackage{csquotes}
 \usepackage{pdflscape} % lscape pokud se nema otacet stranka
 \usepackage{bookmark} % pro moznost ukonceni part
 \usepackage[style=iso-numeric]{biblatex}
 
+\usemintedstyle{xcode} % aby nebyly zvyrazneny chyby v Reactu (minted neumi JSX)
 \addbibresource{sources.bib}
 \setcounter{biburllcpenalty}{7000} % aby se spravne lamaly adresy v bibliografii:
 \setcounter{biburlucpenalty}{8000}
 \setcounter{tocdepth}{3} % nadpisy vsech urovni v obsahu
 \definecolor{bg}{rgb}{0.95,0.95,0.95} % pozadi pro kody
+\renewcommand{\listingscaption}{Ukázka kódu}
+\renewcommand{\listoflistingscaption}{Seznam ukázek kódu}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 \department{Katedra softwarového inženýrství}
@@ -45,8 +45,6 @@
 \keywordsEN{web application, Successful first-grader, Python, Django, React, Django REST framework}
 
 \website{https://github.com/rodlukas/bachelors-thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
-\renewcommand{\listingscaption}{Ukázka kódu}
-\renewcommand{\listoflistingscaption}{Seznam ukázek kódu}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
 \begin{document}
@@ -64,7 +62,7 @@
     \part{Praktická část}
         \input{BP_prakticka}
         
-    \bookmarksetup{startatroot} % aby nasledujici kapitoly nespadaly do part (prakticke casti)
+    \bookmarksetup{startatroot} % aby nasledujici kapitoly nespadaly do partu s praktickou casti
     \addtocontents{toc}{\bigskip}
     
     \begin{conclusion}
