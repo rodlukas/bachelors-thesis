@@ -11,11 +11,11 @@ Vytvořte webovou aplikaci pro projekt „Úspěšný prvňáček“, která bud
  5. Proveďte akceptační testy.
  6. Zvolte vhodný hosting a nasaďte.
  7. Navrhněte další možná rozšíření aplikace v budoucnu.
-> Součástí tohoto repozitáře je také [oficiální PDF soubor](https://github.com/rodlukas/bachelors-thesis/raw/master/BP.pdf) se zadáním práce.
+> Součástí tohoto repozitáře je také [oficiální PDF soubor se zadáním práce](https://github.com/rodlukas/bachelors-thesis/raw/master/zadani.pdf).
 ## Další informace o práci
 Práce byla vypracována v roce 2018 na Fakultě informačních technologií ČVUT v Praze. Obor *Webové a softwarové inženýrství*, zaměření *Softwarové inženýrství* ([BI-WSI-SI](http://bk.fit.cvut.cz/cz/plany/pl30010006.html)).
 ## Jak si práci přečíst
-Pro otevření práce stačí běžný PDF prohlížeč, součástí tohoto repozitáře je [PDF soubor s prací](BP.pdf).
+Práce je dispozici ve [formátu PDF](https://github.com/rodlukas/bachelors-thesis/raw/master/BP.pdf). K jejímu otevření postačí běžný PDF prohlížeč.
 > Součástí tohoto repozitáře je také [PREZENTACE](https://github.com/rodlukas/bachelors-thesis/raw/master/prezentace/BP_prezentace.pdf) se zadáním práce.
 ## Použité nástroje
 Práce je napsaná v [*LaTeXu*](https://www.latex-project.org/about/) pomocí online editoru [Sharelatex](http://sharelatex.com/) a kompilátoru *XeLaTeX*.
