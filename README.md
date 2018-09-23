@@ -1,5 +1,7 @@
 # Bachelor's thesis: Web application for the project “Successful first-grader”
 This thesis is written in Czech language, so the following text won't be in English.
+
+Brief info (EN + CZ) and text (CZ) is also available at [Czech Technical University Digital Library](http://hdl.handle.net/10467/76850)
 ***
 ## Téma a zadání bakalářské práce
 ### Webová aplikace pro evidenci klientů projektu „Úspěšný prvňáček“
